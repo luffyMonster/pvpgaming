@@ -1,0 +1,28 @@
+'use strict';
+
+module.exports = {
+  getAll : function(req, res){
+    res.json(
+    {
+      'items': [
+      {
+        'gameURL': 'game/tower-defense/index.html',
+        'background': 'img/game-list/gems-home-page.jpg',
+        'background_overlay': 'img/game-list/case-logo1.png',
+        'description': 'Surround yourself in the lofty heights of Mount Olympus where gorgeous gems cascade for big wins.'
+      },
+      {
+          'gameURL': 'game/tower-defense/index.html',
+          'background': 'img/game-list/humpty-main-bg.jpg',
+          'background_overlay': 'img/game-list/case-logo2.png',
+          'description': 'Escape into the magical fairy-tale world of Humpty Dumpty.'
+        },
+        {
+            'gameURL': '"game/tower-defense/index.html"',
+            'background': 'img/game-list/meerkats-home-bg.jpg',
+            'background_overlay': 'img/game-list/case-logo3.png',
+            'description': 'Journey through an exciting and unique colony and meet the meerkat family.'
+          }
+    ]});
+  }
+}

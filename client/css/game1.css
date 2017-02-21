@@ -1,0 +1,40 @@
+header {
+  position: relative;
+  height: 500px;
+  background-image: url("../img/lol.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+.center {
+  color: #ffffff;
+  margin: 0;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.box-play{
+  background: #000000;
+}
+main{
+  background: #000000;
+}
+h3{
+  padding-top: 10px;
+  margin: 0 0 10px 10px;
+  color: #ffffff;
+}
+canvas{
+  width: 100%;
+  margin: 0;
+}
+.navbar-fixed-top a{
+  text-decoration: none;
+  color: #ffffff;
+}
+.center p:nth-child(1){
+  font-size: 40px;
+  font-family: "Gloria Hallelujah"
+}
