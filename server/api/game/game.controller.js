@@ -8,4 +8,4 @@ module.exports = {
       res.json(JSON.parse(data));
     });
   }
-}
+} 
