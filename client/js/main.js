@@ -5,9 +5,7 @@ $(document).ready(function () {
       type  : "get",
       url   : "/api/game/list"
     }).then(function(data){
-      console.log(data);
       var itemHtml = $(itemGameTopTemplate(data));
-      console.log(itemHtml);
       $("#item_list").append(itemHtml);
     }).fail(function(error){
       console.log(error);
