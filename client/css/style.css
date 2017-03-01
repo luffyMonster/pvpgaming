@@ -120,6 +120,51 @@ header .active a {
 header nav .navbar-header .navbar-toggle {
     color: #ffffff;
 }
+
+header .screen_overlay .login_box .btn_login {
+  background-color: rgb(254, 73, 55);
+  border-radius: 0;
+  border-style: none;
+}
+
+header .screen_overlay .login_box .btn_login:hover {
+  background-color: #cecece;
+  color: #000000;
+}
+
+#login_modal .modal-header .modal-title {
+  color: #000000;
+  font-family: Impact;
+}
+
+#login_modal .modal-header .modal-title span {
+  border-bottom-color: rgb(254, 73, 55);
+  border-bottom-style: solid;
+  border-bottom-width: 5px;
+}
+
+#login_modal .modal-header {
+  border-bottom-style: none;
+}
+
+#login_modal .modal-body .input-group {
+  padding: 2%;
+  font-family: Impact;
+}
+
+#login_modal .modal-body .btn_signin {
+  color: #ffffff;
+  background-color: rgb(254, 73, 55);
+  font-family: Helvetica;
+  width: 30%;
+  margin: 2%;
+}
+
+#login_modal .modal-body .btn_signin:hover {
+  background-color: #cecece;
+  color: #000000;
+}
+
 /*============================END OF HEADER==================================*/
 
 /*============================BOX GAMES==================================*/

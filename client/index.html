@@ -38,7 +38,33 @@
           <img src="img/main-screen-index.png">
         </div>
         <div class="login_box text-center">
-          <h1>Welcome</h1>
+          <button type="button" class="btn btn-info btn-lg btn_login" data-toggle="modal" data-target="#login_modal">Login</button>
+
+          <div id="login_modal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h1 class="modal-title">
+                    <span>Welcome back!</span>
+                  </h1>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="input-group input_username">
+                      <input id="username" type="text" class="form-control" name="username" placeholder="Your username">
+                      <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    </div>
+                    <div class="input-group input_password">
+                      <input id="password" type="password" class="form-control" name="password" placeholder="Your password">
+                      <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    </div>
+                  </form>
+                  <button type="button" class="btn btn-default btn_signin">Signin →</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
     </div>
     <div class="background">
