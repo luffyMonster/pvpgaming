@@ -12,6 +12,27 @@ $(document).ready(function () {
     }).always(function(){
     });
 
+    $('#signin').submit(function(event) {
+      var username = $('#username').val();
+      var password = $('#password').val();
+      $.ajax({
+        type  : "post",
+        url   : "/api/auth/local",
+        data  : {
+          username: username,
+          password: password
+        }
+      }).then(function(data){
+        if (data) {
+          if (data.token) {
+            alert("Login success!");
+          }
+        }
+      }).fail(function(error){
+        console.log(error);
+      }).always(function(){
+      });
+    })
 
     $('#features').css('visibility', 'hidden');
     $(window).on('scroll', function () {
