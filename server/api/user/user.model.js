@@ -18,7 +18,16 @@ var user = new Schema({
     default: 'user'
   },
   salt: String,
-  password: String
+  password: String,
+  gender: {
+    type: String,
+    default: 'male'
+  },
+  dob: Date,
+  status : {
+    type: Number,
+    default: 1
+  }
 });
 
 user.plugin(findOrCreate);

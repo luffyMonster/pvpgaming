@@ -22,6 +22,7 @@ module.exports = {
       .use(function(req, res, next) {
         // allow access_token to be passed through query parameter as well
         if (req.cookies.token) {
+            console.log(req.cookies.token);
           // if (req.query && req.query.hasOwnProperty('access_token')) {
             req.headers.authorization = 'Bearer ' + req.cookies.token
           // }

@@ -91,6 +91,16 @@ module.exports = {
     }
   },
 
+  findByGender: function (req, res) {
+    if(req.params.gender) {
+      User.find({gender: req.params.gender}).exec(function (err,data) {
+        res.json(data);
+      })
+    } else {
+      res.json([]);
+    }
+  },
+
   find : function(req, res){
     if (req.query) {
       var query = {};
