@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" type="text/css" href="../libs/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/admin.css"/>
+    <script type="text/javascript" src="../libs/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="../libs/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../libs/handlebars.js"></script>
+    <script type="text/javascript" src="js/admin.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row header text-center">
+        <h1>User management</h1>
+      </div>
+      <div class="row body">
+        <div class="col-md-2 left_panel">
+          <a href="/admin/users.html">
+            Users
+          </a>
+          <a href="/admin/shop.html">
+            Shop
+          </a>
+          <a href="/admin/product.html">
+            Product
+          </a>
+        </div>
+        <div class="col-md-10 right_panel">
+          <form id="search">
+            <div class="row input_box">
+              <div class="col-md-6 name_input">
+                <span>Name</span>
+                <input id="name" type="text" class="form-control" name="name">
+              </div>
+              <div class="col-md-6 account_input">
+                <span>Account</span>
+                <input id="account" type="text" class="form-control" name="account">
+              </div>
+            </div>
+            <div class="row role_checkbox">
+              <span>Role</span>
+              <div class="admin_chk">
+                <input type="checkbox" name="role" value="admin"> Admin
+              </div>
+              <div class="user_chk">
+                <input type="checkbox" name="role" value="user"> User
+              </div>
+            </div>
+            <div class="row">
+              <div class="btn_search">
+                <button type="submit" class="btn btn-default">
+                  Search
+                </button>
+              </div>
+            </div>
+          </form>
+          <a href="/admin/create.html">
+            Create New
+          </a>
+          <div class="row result">
+            <table id="result_table" class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>
+                    Account
+                  </th>
+                  <th>
+                    Name
+                  </th>
+                  <th>
+                    Role
+                  </th>
+                  <th>
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    admin
+                  </td>
+                  <td>
+                    Admin
+                  </td>
+                  <td>
+                    Admin
+                  </td>
+                  <td>
+                    <button type="submit" class="btn btn-default btn_edit">
+                      Edit
+                    </button>
+                    <button type="submit" class="btn btn-default btn_delete">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

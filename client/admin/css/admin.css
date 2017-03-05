@@ -1,0 +1,42 @@
+.container {
+  color: #000000;
+  background-color: #cecece;
+  font-family: Impact;
+}
+
+#search {
+  margin: 3% 0;
+}
+
+#search .row {
+  padding: 0 10%;
+}
+
+.body .left_panel a {
+  display: block;
+  margin: 5% 0;
+}
+
+.input_box input {
+  width: 60%;
+  margin: 5% 5%;
+  display: inline-block;
+}
+
+.input_box .col-md-6 {
+  padding: 0;
+}
+
+.role_checkbox div {
+  display: inline-block;
+  margin: 0 2%;
+}
+
+.role_checkbox input {
+  margin: 5% 0;
+}
+
+.btn_search {
+  display: flex;
+  flex-direction: row-reverse;
+}
