@@ -36,7 +36,7 @@
               </div>
               <div class="col-md-6 account_input">
                 <span>Account</span>
-                <input id="account" type="text" class="form-control" name="account">
+                <input id="account" type="text" class="form-control" name="username">
               </div>
             </div>
             <div class="row role_checkbox">
@@ -50,7 +50,7 @@
             </div>
             <div class="row">
               <div class="btn_search">
-                <button type="submit" class="btn btn-default">
+                <button type="submit" class="btn btn-default" id='submit'>
                   Search
                 </button>
               </div>
@@ -77,31 +77,36 @@
                   </th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    admin
-                  </td>
-                  <td>
-                    Admin
-                  </td>
-                  <td>
-                    Admin
-                  </td>
-                  <td>
-                    <button type="submit" class="btn btn-default btn_edit">
-                      Edit
-                    </button>
-                    <button type="submit" class="btn btn-default btn_delete">
-                      Delete
-                    </button>
-                  </td>
-                </tr>
+              <tbody id='user_item'>
+
               </tbody>
             </table>
           </div>
         </div>
       </div>
     </div>
+    <script id="user-template" type="text/x-handlebars-template">
+      {{#each items}}
+      <tr>
+        <td>
+          {{username}}
+        </td>
+        <td>
+          {{name}}
+        </td>
+        <td>
+          {{role}}
+        </td>
+        <td>
+          <button type="submit" class="btn btn-default btn_edit">
+            Edit
+          </button>
+          <button type="submit" class="btn btn-default btn_delete">
+            Delete
+          </button>
+        </td>
+      </tr>
+      {{/each}}
+    </script>
   </body>
 </html>
