@@ -5,6 +5,7 @@ module.exports = {
       User.find({
         name: new RegExp(req.query.name, 'i'),
         username: req.query.username,
+        username: {$exists: true},
         role: req.query.role
       })
       .exec(function(err, data){

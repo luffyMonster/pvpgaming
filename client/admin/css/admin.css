@@ -4,6 +4,9 @@
   font-family: Impact;
 }
 
+.margin_left{
+  margin: 10px;
+}
 #search {
   margin: 3% 0;
 }
