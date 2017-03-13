@@ -79,9 +79,9 @@ gulp.task('serve', () => {
   process.env.NODE_ENV = process.env.NODE_ENV || 'development';
   runSequence(['clean', 'wiredep'], ['lint:client', 'lint:server'], ['styles', 'fonts'], 'nodemon', () => {
     browserSync({
-      proxy: "localhost:8888",
+      proxy: "localhost:9999",
       notify: false,
-      port: 8888,
+      port: 9999,
       files: ['.tmp', 'client', 'server']
     });
 

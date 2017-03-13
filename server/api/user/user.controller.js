@@ -4,7 +4,8 @@ var User = require('./user.model');
 
 module.exports = {
   deleteUser: function(req, res){
-    User.findOne({username: req.params.username})
+    console.log(req.body.username);
+    User.findOne({username: req.body.username})
       .exec(function(err, data){
         if (data){
           data.remove(function(err){
@@ -24,6 +25,7 @@ module.exports = {
       User.findOne({username: req.body.username}).exec(function(err, data){
         if (data){
           data.age = req.body.age;
+          data.gender = req.body.gender;
           data.role = req.body.role;
           data.name = req.body.name;
         }

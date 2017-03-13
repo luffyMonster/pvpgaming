@@ -19,7 +19,7 @@ $(document).ready(function(){
   $('body').on('click', '.btn_edit', function(){
     $('#modal_edit').modal('toggle');
     var user = findUserById(this.id);
-    $('#modal_edit #username').text(user.username);
+    $('#modal_edit #username').val(user.username);
     $('#modal_edit #name').val(user.name);
     $('#modal_edit #age').val(user.age);
     if(user.gender === 'male') {
@@ -41,10 +41,17 @@ $(document).ready(function(){
       data[v.name] = v.value;
     });
     data['username'] = $('#username').val();
+    console.log(data);
     $.ajax({
       type: "put",
       url: "/api/user/edit",
-      data: data
+      data: {
+        username : data.username,
+        age : data.age,
+        gender : data.gender,
+        role : data.role,
+        name : data.name
+      }
     }).then(function(data){
       console.log(data);
       $('#modal_edit #result').append($.parseHTML('<p>'+data.message+'</p>'));
@@ -54,7 +61,6 @@ $(document).ready(function(){
   });
   $('#create-form').submit(function(event){
     event.preventDefault();
-    $('modal_create #result').empty();
     var data = {};
     $.each($('#create-form').serializeArray(), function(i, v){
       data[v.name] = v.value;
@@ -66,10 +72,32 @@ $(document).ready(function(){
       data: data
     }).then(function(data){
       console.log(data);
-        $('#modal_create #result').append($.parseHTML('<p>'+data.message+'</p>'));
+      $('#modal_create #result').append($.parseHTML('<p>'+data.message+'</p>'));
     }).fail(function(err){
       console.log(err);
     });
+    $("form").trigger("reset");
+  });
+
+  $('body').on('click', '.btn_delete', function(){
+    console.log(this.id);
+    var user = findUserById(this.id);
+    console.log(user.username);
+    var confirm = window.confirm("Do you want to delete user: " + user.username + "?");
+    if (confirm == true) {
+      $.ajax({
+        type: "delete",
+        url: "/api/user/delete",
+        data: {
+          username: user.username
+        }
+      }).then(function(data){
+        alert(data.message);
+        location.reload();
+      }).fail(function(err){
+        console.log(err);
+      });
+    }
   });
 
   $('#search').submit(function(event){
