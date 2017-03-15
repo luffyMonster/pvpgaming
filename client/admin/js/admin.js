@@ -18,7 +18,8 @@ $(document).ready(function(){
 
   $('body').on('click', '.btn_edit', function(){
     $('#modal_edit').modal('toggle');
-    var user = findUserById(this.id);
+    var user = findUserById(this.id.split('-')[1]);
+    console.log(user);
     $('#modal_edit #username').val(user.username);
     $('#modal_edit #name').val(user.name);
     $('#modal_edit #age').val(user.age);
@@ -80,11 +81,10 @@ $(document).ready(function(){
   });
 
   $('body').on('click', '.btn_delete', function(){
-    console.log(this.id);
-    var user = findUserById(this.id);
+    var user = findUserById(this.id.split('-')[1]);
     console.log(user.username);
     var confirm = window.confirm("Do you want to delete user: " + user.username + "?");
-    if (confirm == true) {
+    if (confirm === true) {
       $.ajax({
         type: "delete",
         url: "/api/user/delete",

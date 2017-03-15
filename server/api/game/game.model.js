@@ -12,5 +12,5 @@ var game = new Schema({
   logo: String,
   description: String
 });
-
-module.exports = mongoose.model('Game', game);
+var model = mongoose.model('Game', game);
+module.exports = model;

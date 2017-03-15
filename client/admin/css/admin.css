@@ -6,6 +6,15 @@
 .margin_left{
   margin: 10px;
 }
+#_create{
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #04afbf;
+}
+#_create:hover{
+  cursor: pointer;
+  color: #6500d8;
+}
 #search {
   margin: 3% 0;
 }
