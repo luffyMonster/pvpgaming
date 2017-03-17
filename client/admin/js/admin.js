@@ -59,6 +59,7 @@ $(document).ready(function(){
     }).fail(function(err){
       console.log(err);
     });
+
   });
   $('#create-form').submit(function(event){
     event.preventDefault();
