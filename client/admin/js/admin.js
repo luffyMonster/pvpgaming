@@ -55,7 +55,11 @@ $(document).ready(function(){
       }
     }).then(function(data){
       console.log(data);
-      $('#modal_edit #result').append($.parseHTML('<p>'+data.message+'</p>'));
+      var _html = '<p class="red bold">';
+      if (data.status){
+        _html = '<p class="green bold">'
+      }
+      $('#result').html(_html+data.message+'!</p>');
     }).fail(function(err){
       console.log(err);
     });
@@ -74,7 +78,11 @@ $(document).ready(function(){
       data: data
     }).then(function(data){
       console.log(data);
-      $('#modal_create #result').append($.parseHTML('<p>'+data.message+'</p>'));
+      var _html = '<p class="red bold">';
+      if (data.status){
+        _html = '<p class="green bold">'
+      }
+      $('#result').html(_html+data.message+'!</p>');
     }).fail(function(err){
       console.log(err);
     });

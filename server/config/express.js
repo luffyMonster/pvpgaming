@@ -5,6 +5,9 @@ var config = require('./environment');
 var path = require('path');
 var session = require('express-session');
 var cookieParser = require('cookie-parser')
+var passport = require('passport');
+
+var auth = require('../api/auth/auth.service');
 
 module.exports = function(app) {
   var env = app.get('env');
@@ -16,6 +19,9 @@ module.exports = function(app) {
 
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
+
+  // app.use(passport.initialize());
+  // app.use(passport.session());
 
   var appPath = path.join(config.root, 'client');
   var bowers = path.join(config.root, 'bower_components');

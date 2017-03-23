@@ -2,9 +2,18 @@
   color: #000000;
   background-color: #cecece;
 }
-
+ul li{
+  font-size: 30px;
+  margin: 10px;
+}
+#box-role{
+  display: inline-block;
+}
 .margin_left{
   margin: 10px;
+}
+h4{
+  font-weight: bold;
 }
 #_create{
   font-weight: bold;
@@ -27,13 +36,15 @@
   display: block;
   margin: 5% 0;
 }
-
 .input_box input {
-  width: 60%;
-  margin: 5% 5%;
+  width: 70%;
+  margin: 0 5px 10px 5px;
   display: inline-block;
 }
 
+form label {
+  width: 20%;
+}
 .input_box .col-md-6 {
   padding: 0;
 }
@@ -46,8 +57,24 @@
 .role_checkbox input {
   margin: 5% 0;
 }
-
-.btn_search {
-  display: flex;
-  flex-direction: row-reverse;
+.foot_modal{
+  margin-top: 10px;
+  text-align: center;
+}
+.btn_submit {
+  float: right;
+  margin-right: 8%;
+}
+.fill_grey{
+  background-color: #cccccc;
+  font-weight: bold;
+}
+.bold{
+  font-weight: bold;
+}
+.red{
+  color: #d44950;
+}
+.green{
+  color: #337ab7;
 }

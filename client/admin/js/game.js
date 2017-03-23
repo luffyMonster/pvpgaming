@@ -37,15 +37,11 @@ $(document).ready(function(){
     $('#submit').text('Save');
     var game = findGameById(this.id.split('-')[1]);
     var listinput = ['name', 'gameurl', 'logo', 'background', 'description'];
-    // listinput.forEach(item){
-    //   console.log(item);
-    // //  $('#{item}').val(game[item]);
-    // };
-    $('#name').val(game.name);
-    $('#gameurl').val(game.gameurl);
-    $('#logo').val(game.logo);
-    $('#background').val(game.background);
-    $('#description').val(game.description);
+    console.log(listinput);
+    listinput.forEach(function(item){
+      // console.log(item);
+      $('#{item}').val(game[item]);
+    });
   });
 
   $('body').on('click', '.btn_delete', function(){
@@ -92,7 +88,11 @@ $(document).ready(function(){
     //call ajax
     console.log(objAjax);
     $.ajax(objAjax).then(function(data){
-      $('#result').html(data.message);
+      var _html = '<p class="red bold">';
+      if (data.status){
+        _html = '<p class="green bold">'
+      }
+      $('#result').html(_html+data.message+'!</p>');
     }).fail(function(err){
       console.log(err);
     });

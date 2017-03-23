@@ -17,13 +17,13 @@
       </div>
       <div class="row body">
         <div class="col-md-2 left_panel">
-          <a href="/admin/index.html">
+          <a href="/admin/users.html">
             Users
           </a>
           <a href="/admin/games.html">
             Games
           </a>
-          <a href="/admin/product.html">
+          <a href="/">
             Product
           </a>
         </div>
@@ -31,7 +31,6 @@
           <span id="_create">
                 Create New
           </span>
-
           <div class="row result">
             <table id="result_table" class="table table-bordered">
               <thead>
@@ -77,46 +76,36 @@
               <div class="right_panel">
                 <form id="game-form">
                   <div class="row input_box">
-                    <div class="col-md-6">
-                      <span>Name</span>
+                      <label for="name">Name</label>
                       <input id="name" type="text" class="form-control" name="name">
-                    </div>
                   </div>
                   <div class="row input_box">
-                    <div class="col-md-6">
-                      <span>Game url</span>
+                      <label for="gameurl">Game url</label>
                       <input id="gameurl" type="text" class="form-control" name="gameurl">
-                    </div>
                   </div>
                   <div class="row input_box">
-                    <div class="col-md-6 account_input">
-                      <span>Background</span>
+                      <label for="background">Background</label>
                       <input id="background" type="text" class="form-control" name="background">
-                    </div>
                   </div>
                   <div class="row input_box">
-                    <div class="col-md-6 account_input">
-                      <span>Logo</span>
+                      <label for="logo">Logo</label>
                       <input id="logo" type="text" class="form-control" name="logo">
-                    </div>
                   </div>
                   <div class="row input_box">
-                    <div class="col-md-6 account_input">
-                      <span>Description</span>
+                      <label for="description">Description</label>
                       <input id="description" type="text" class="form-control" name="description">
-                    </div>
                   </div>
-
-                  <div class="row">
-                    <div class="btn_search">
-                      <button type="submit" class="btn btn-default" id='submit'>
+                  <div class="row foot_modal">
+                    <div class="btn_submit">
+                      <button type="submit" class="btn btn-default fill_grey" id='submit'>
                         Create
                       </button>
                     </div>
+                    <div id="result">
+                    </div>
                   </div>
                 </form>
-                <div id="result">
-                </div>
+
               </div>
             </div>
           </div>

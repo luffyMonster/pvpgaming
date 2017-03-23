@@ -6,5 +6,4 @@ module.exports = function(app) {
   app.use('/api/test', require('./api/test'));
   app.use('/api/game', require('./api/game'));
   app.use('/api/test', require('./api/test'));
-  app.use('/api/admin/search/', require('./api/admin/search'));
 }

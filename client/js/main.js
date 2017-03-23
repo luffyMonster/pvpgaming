@@ -5,7 +5,6 @@ $(document).ready(function () {
       type  : "get",
       url   : "/api/game/list"
     }).then(function(data){
-      console.log(data);
       var itemHtml = $(itemGameTopTemplate(data.result.splice(0, 4)));
       $("#item_list").append(itemHtml);
     }).fail(function(error){
@@ -14,18 +13,18 @@ $(document).ready(function () {
     });
 
     $('#signin').submit(function(event) {
+      event.preventDefault();
       var username = $('#username').val();
       var password = $('#password').val();
       $.ajax({
         type  : "post",
         url   : "/api/auth/local",
-        data  : {
-          username: username,
-          password: password
-        }
+        data  : { username, password }
       }).then(function(data){
         if (data) {
           if (data.token) {
+            //save token to cookie
+            $.cookie('token', data.token);
             alert("Login success!");
           }
         }

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" type="text/css" href="../libs/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/admin.css"/>
+    <script type="text/javascript" src="../libs/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="../libs/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../libs/handlebars.js"></script>
+    <script type="text/javascript" src="js/admin.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row header text-center">
+        <h1>User management</h1>
+      </div>
+      <div class="row body">
+        <div class="col-md-2 left_panel">
+          <a href="/admin/users.html">
+            Users
+          </a>
+          <a href="/admin/games.html">
+            Games
+          </a>
+          <a href="/">
+            Product
+          </a>
+        </div>
+        <div class="col-md-10 right_panel">
+          <form id="search">
+            <div class="row input_box">
+              <div class="col-md-6 name_input">
+                <span>Name</span>
+                <input id="name" type="text" class="form-control" name="name">
+              </div>
+              <div class="col-md-6 account_input">
+                <span>Account</span>
+                <input id="account" type="text" class="form-control" name="username">
+              </div>
+            </div>
+            <div class="row role_checkbox">
+              <span>Role</span>
+              <div class="admin_chk">
+                <input type="radio" name="role" value="admin"> Admin
+              </div>
+              <div class="user_chk">
+                <input type="radio" name="role" value="user"> User
+              </div>
+            </div>
+            <div class="row">
+              <div class="btn_submit">
+                <button type="submit" class="btn btn-default" id='submit'>
+                  Search
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <span id="_create">
+                Create New
+          </span>
+
+          <div class="row result">
+            <table id="result_table" class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>
+                    Account
+                  </th>
+                  <th>
+                    Name
+                  </th>
+                  <th>
+                    Role
+                  </th>
+                  <th>
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody id='user_item'>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- modal create-->
+    <div class="modal fade" id="modal_create" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="gridSystemModalLabel">Create User</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row margin_left">
+              <div class="right_panel">
+                <form id="create-form" method="post">
+                  <div class="row input_box">
+                    <label for="name">Name</label>
+                    <input id="name" type="text" class="form-control" name="name">
+                  </div>
+                  <div class="row input_box">
+                      <label for="account">Account</label>
+                      <input id="account" type="text" class="form-control" name="username">
+                  </div>
+                  <div class="row input_box">
+                      <label for="password">Password</label>
+                      <input id="password" type="password" class="form-control" name="password">
+                  </div>
+                  <div class="row role_checkbox">
+                    <label for="box-role">Role</label>
+                    <div id="box-role">
+                        <input type="radio" name="role" value="admin" id="role-admin"> Admin
+                        <input type="radio" name="role" value="user" id="role-user"> User
+                    </div>
+                  </div>
+                  <div class="row foot_modal">
+                    <div class="btn_submit">
+                      <button type="submit" class="btn btn-default fill_grey" id='submit'>
+                        Create
+                      </button>
+                    </div>
+                    <div id="result">
+                    </div>
+                  </div>
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- end modal_create-->
+    <!-- modal edit-->
+    <div class="modal fade" id="modal_edit" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="gridSystemModalLabel">Edit User</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row margin_left">
+              <div class="right_panel">
+                <form id="edit-form" method="put">
+                  <div class="row input_box">
+                    <div class="col-md-6">
+                      <span>Username</span>
+                      <input id="username" type="text" class="form-control" name="username" disabled>
+                      <span>Name</span>
+                      <input id="name" type="text" class="form-control" name="name">
+                    </div>
+                  </div>
+                  <div class="row role_checkbox">
+                    <span>Gender</span>
+                    <div class="admin_chk">
+                      <input type="radio" name="gender" value="male"> Male
+                    </div>
+                    <div class="user_chk">
+                      <input type="radio" name="gender" value="user"> Female
+                    </div>
+                  </div>
+                  <div class="row input_box">
+                    <div class="col-md-6 account_input">
+                      <span>Age</span>
+                      <input id="age" type="number" class="form-control" name="age">
+                    </div>
+                  </div>
+                  <div class="row role_checkbox">
+                    <span>Role</span>
+                    <div class="admin_chk">
+                      <input type="radio" name="role" value="admin"> Admin
+                    </div>
+                    <div class="user_chk">
+                      <input type="radio" name="role" value="user"> User
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="btn_submit">
+                      <button type="submit" class="btn btn-default" id='submit'>
+                        Save
+                      </button>
+                    </div>
+                  </div>
+                </form>
+                <div id="result">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- end modal_create-->
+
+    <script id="user-template" type="text/x-handlebars-template">
+      {{#each items}}
+      <tr>
+        <td>
+          {{username}}
+        </td>
+        <td>
+          {{name}}
+        </td>
+        <td>
+          {{role}}
+        </td>
+        <td>
+          <button id="cre-{{_id}}" type="submit" class="btn btn-default btn_edit">
+            Edit
+          </button>
+          <button id="del-{{_id}}" type="submit" class="btn btn-default btn_delete">
+            Delete
+          </button>
+        </td>
+      </tr>
+      {{/each}}
+    </script>
+  </body>
+</html>
