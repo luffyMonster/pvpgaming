@@ -110,6 +110,18 @@ gulp.task('serve:dist', ['default'], () => {
 		}
 	});
 });
+//game-server
+gulp.task('game-serve', ()=>{
+  var started = false;
+  return $.nodemon({
+		script: 'gameserver/server.js'
+	}).on('start', function () {
+		if (!started) {
+			cb();
+			started = true;
+		}
+	});
+});
 
 gulp.task('nodemon', function (cb) {
 	var started = false;

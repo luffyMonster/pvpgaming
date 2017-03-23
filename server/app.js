@@ -27,6 +27,7 @@ db.once('open', function() {
 // Start server
 server.listen(config.port, config.ip, function() {
     console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
+    console.log('Type "gulp game-serve" to start game-server on other cmd');
 });
 
 // Expose app
