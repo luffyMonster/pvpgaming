@@ -3,51 +3,23 @@ var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io').listen(server);
-
-
-server.lastPlayderID = 0;
-server.playersList = [];
-
+var mongoose = require('mongoose');
+var randomString = require('make-random-string');
+var bodyParser = require('body-parser');
+var game = require('./caro');
 server.listen(process.env.PORT || 8081,function(){
     console.log('Listening on '+server.address().port);
 });
 
-io.on('connection',function(socket){
-    socket.on('newplayer',function(){
-        socket.player = {
-            id: server.lastPlayderID++,
-            x: randomInt(100,400),
-            y: randomInt(100,400)
-        };
-        socket.emit('allplayers',getAllPlayers());
-        socket.broadcast.emit('newplayer',socket.player);
-
-        socket.on('click',function(data){
-            console.log('click to '+data.x+', '+data.y);
-            socket.player.x = data.x;
-            socket.player.y = data.y;
-            io.emit('move',socket.player);
-        });
-
-        socket.on('disconnect',function(){
-            io.emit('remove',socket.player.id);
-        });
-    });
-
-    socket.on('test',function(){
-        console.log('test received');
-    });
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+    next();
 });
 
-function getAllPlayers(){
-    var players = [];
-    Object.keys(io.sockets.connected).forEach(function(socketID){
-        var player = io.sockets.connected[socketID].player;
-        if(player) players.push(player);
-    });
-    return players;
-}
-
-function randomInt (low, high) {
-    return Math.floor(Math.random() * (high - low) + low);
-}
+io.sockets.on('connection', function(socket){
+  game.init(io, socket);
+});

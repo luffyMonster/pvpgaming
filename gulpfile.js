@@ -121,6 +121,9 @@ gulp.task('game-serve', ()=>{
 			started = true;
 		}
 	});
+  gulp.watch([
+    'gameserver/*.js',
+  ]).on('change', reload);
 });
 
 gulp.task('nodemon', function (cb) {
