@@ -1,27 +1,31 @@
-var io, socket;
 var randomString = require('make-random-string');
 var rooms = [];
-module.exports = {};
-module.exports.init = function(_io, _socket){
-  io = _io;
-  socket = _socket;
+var io = require('./server.js').io;
+console.log(io);
+module.exports.init = function(socket){
   socket.emit('connected', {msg: 'You are conected'});
   socket.on('createNewGame', createNewGame);
   socket.on('joinGame', joinGame);
   socket.on('listRooms', listRooms);
+  socket.on('otherLeftRoom', function(data){
+    io.sockets.in(data.socket).leave(data.id);
+    setTimeout(io.sockets.in(data.id).emit('test', {msg: "i'm testing"}), 50);
+  })
 }
+// socket -
 function createNewGame(){
   var pid = 'room-'+randomString(20);
-  this.emit('createdNewGame', {gameid: pid, socketid: this.id});
+  this.emit('createdNewGame', {id: pid});
+  rooms.push({id: pid});
   this.join(pid);
-  rooms.push(pid);
+  io.emit('gettedListRooms', rooms);
 }
 function listRooms(){
   this.emit('gettedListRooms', rooms);
 }
 function joinGame(data){
   this.emit('joinedGame', data);
-  var gameid = data.gameid;
-  this.join(gameid);
-  io.sockets.in(gameid).emit('otherJoinedRoom', data);
+  var id = data.id;
+  this.join(id);
+  io.sockets.in(id).emit('otherJoinedRoom', data);
 }

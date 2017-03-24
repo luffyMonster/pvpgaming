@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="lib/socket.io.js"></script>
+    <script type="text/javascript" src="lib/jquery.min.js"></script>
+    <title></title>
+  </head>
+  <body>
+    <button type="button" name="button" onclick='createNewGame()'>Create</button>
+    <button type="button" name="button" onclick='joinGame()'>join</button>
+    <button type="button" name="button" onclick='leaveGame()'>leave</button>
+    <div class="rooms">
+      <select class="" name="" id="roomids">
+      </select>
+    </div>
+    <h3 id="msg">
+    </h3>
+    <script>
+      var socket = io.connect('localhost:8081');
+      var rooms = [];
+      var currentRoom = {};
+      socket.on('connected', function(data){
+        socket.emit('listRooms');
+        socket.on('gettedListRooms', function(rs) {
+          rooms = rs;
+          renderRooms(rs);
+        })
+      });
+
+      function renderRooms(rooms){
+        $('#roomids').empty();
+        rooms.forEach(function(room){
+          console.log(room);
+          $('#roomids').append(`<option>${room.id}</option>`);
+        });
+      }
+      function createNewGame(){
+        socket.emit('createNewGame');
+        socket.on('createdNewGame', function(data) {
+          currentRoom = data;
+        })
+      }
+      function joinGame(){
+        console.log('join');
+        leaveGame();
+        if ($('#roomids').val()) socket.emit('joinGame', {id: $('#roomids').val(), socket: socket.id})
+        // socket.emit('joinGame', $(''));
+      }
+      function leaveGame(){
+        if (currentRoom.id) {
+          // socket.leave(currentRoom.id);
+          socket.emit('otherLeftRoom', {id: currentRoom.id, socket: socket.id});
+          socket.on('test', (data)=>console.log(data))
+        }
+      }
+      socket.on('otherJoinedRoom', function(data) {
+        console.log('joined');
+        if (data.socket == socket.id) {
+          $('#msg').html('You have just joined');
+        } else {
+          $('#msg').html(data.socket + ' have just joined game');
+        }
+      })
+
+    </script>
+  </body>
+</html>

@@ -62,6 +62,26 @@ module.exports = {
           });
         }
       });
+      // var newUser = {
+      //   username: req.body.username,
+      //   password: req.body.password,
+      //   role: req.body.role,
+      //   age: req.body.age,
+      //   name: req.body.name
+      // };
+      // var doc = new User(newUser);
+      // var validates = doc.validateSync();
+      // if (validates){
+      //   res.json({status: false, validates });
+      // } else {
+      //   doc.save(function(err, data){
+      //     if (err){
+      //       res.json({status: false, err})
+      //     } else{
+      //       res.json({status: true, message: 'Success'});
+      //     }
+      //   });
+      // }
     }
   },
 
@@ -104,6 +124,7 @@ module.exports = {
   },
 
   find : function(req, res){
+    //find(query).where('condition').sort('columb name').skip(800).limit(5).populate('').lean()
     if (req.query) {
       var query = {};
       if(req.query.name){
@@ -112,7 +133,6 @@ module.exports = {
       if(req.query.username){
         query.username = req.query.username
       }
-
       if(req.query.agefrom){
         if (!query.age) query.age = {};
         query.age.$gte = parseInt(req.query.agefrom)

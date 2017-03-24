@@ -3,6 +3,7 @@ var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io').listen(server);
+module.exports.io = io;
 var mongoose = require('mongoose');
 var randomString = require('make-random-string');
 var bodyParser = require('body-parser');
@@ -21,5 +22,6 @@ app.use(function (req, res, next) {
 });
 
 io.sockets.on('connection', function(socket){
-  game.init(io, socket);
+  // setTimeout(()=>console.log(), 500);
+  game.init(socket);
 });

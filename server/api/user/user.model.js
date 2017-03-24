@@ -7,18 +7,35 @@ var Schema = mongoose.Schema;
 var findOrCreate = require('mongoose-find-one-or-create');
 
 var user = new Schema({
-  name: String,
+  name: {
+    type: String,
+    trim: true
+  },
   age: Number,
   username: {
     type: String,
-    lowercase: true
+    lowercase: true,
+    trim: true,
+    unique: [true, 'Username already existed!'],
+    require: [true, 'Username is required!'],
+    default: '',
+    validate:{
+      validator:function(v){
+        return true;
+      },
+      message: ''
+    }
   },
   role: {
     type: String,
+    enum: ['user', 'admin'],
     default: 'user'
   },
   salt: String,
-  password: String,
+  password: {
+    type: String,
+    require: [true, 'Password is required!']
+  },
   gender: {
     type: String,
     default: 'male'
