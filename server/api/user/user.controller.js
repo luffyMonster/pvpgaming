@@ -70,7 +70,7 @@ module.exports = {
           function isEmpty(str){
             return str == '' || !str;
           }
-          if ( isEmpty(newUser.username) || isEmpty(newUser.password) || isEmpty(newUser.name) || isEmpty(newUser.role)) {
+          if ( isEmpty(newUser.username) || isEmpty(newUser.password) || isEmpty(newUser.name)) {
             err = { status: false,  message: 'Some field is empty! Please fill it'};
           }
           if (err){
