@@ -10,7 +10,7 @@ $(document).ready(function () {
     $('body').on('click', '#logout', function(e){
       $.ajax({
         type: 'get',
-        url: '/api/user/logout'
+        url: 'api/user/logout'
       }).then(function(data){
         alert(data.message);
         window.location.href = "";
@@ -31,12 +31,11 @@ $(document).ready(function () {
         if (data) {
           if (data.token) {
             $.cookie('token', data.token);
-            alert("Login success!");
             window.location.href = "";
           }
         }
       }).fail(function(error){
-        alert(error.responseJSON.message);
+        console.log(error);
       }).always(function(){
       });
     });
@@ -52,10 +51,7 @@ $(document).ready(function () {
         data  : { name, username, password }
       }).then(function(data){
         if (data.status) {
-          alert(data.message);
           window.location.href = "";
-        } else {
-          alert(data.message);
         }
       }).fail(function(error){
         console.log(error);

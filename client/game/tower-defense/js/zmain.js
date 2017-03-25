@@ -1440,21 +1440,23 @@ Citadel.configs = {
   ]
 };
 
-window.onload = function() {
-  Citadel.game = new Phaser.Game(
-    '100%',
-    Citadel.configs.GAME_HEIGHT,
-    Phaser.AUTO,
-    'game-play',
-    {
-      preload: preload,
-      create: create,
-      update: update,
-      render: render
-    },
-    false,
-    false
-  );
+if (user) {
+  window.onload = function() {
+    Citadel.game = new Phaser.Game(
+      '100%',
+      Citadel.configs.GAME_HEIGHT,
+      Phaser.AUTO,
+      'game-play',
+      {
+        preload: preload,
+        create: create,
+        update: update,
+        render: render
+      },
+      false,
+      false
+    );
+  }
 }
 
 var preload = function() {

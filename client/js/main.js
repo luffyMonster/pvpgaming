@@ -1,11 +1,19 @@
 $(document).ready(function () {
+  var gameList;
+
   var itemGameTopTemplate = Handlebars.compile($("#item-game-top-template").html());
   $.ajax({
     type  : "get",
     url   : "/api/game/list"
   }).then(function(data){
+    gameList = data;
     var itemHtml = $(itemGameTopTemplate(data));
     $("#item_list").append(itemHtml);
+    console.log(gameList.result[0]._id);
+    for (var i = 0; i < gameList.result.length; i++) {
+      $('#' + gameList.result[i]._id).val(i);
+      $('#' + gameList.result[i]._id).rating({displayOnly: true, step: 0.5});
+    }
   }).fail(function(error){
     console.log(error);
   }).always(function(){
@@ -17,7 +25,6 @@ $(document).ready(function () {
       type: 'get',
       url: '/api/user/logout'
     }).then(function(data){
-      alert(data.message);
       window.location.href = "";
     }).fail(function(err) {
       console.log(err);
@@ -36,12 +43,11 @@ $(document).ready(function () {
       if (data) {
         if (data.token) {
           $.cookie('token', data.token);
-          alert("Login success!");
           window.location.href = "";
         }
       }
     }).fail(function(error){
-      alert(error.responseJSON.message);
+      console.log(error);
     }).always(function(){
     });
   });
@@ -57,10 +63,8 @@ $(document).ready(function () {
       data  : { name, username, password }
     }).then(function(data){
       if (data.status) {
-        alert(data.message);
         window.location.href = "";
       } else {
-        alert(data.message);
       }
     }).fail(function(error){
       console.log(error);

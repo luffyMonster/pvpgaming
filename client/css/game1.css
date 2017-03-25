@@ -1,11 +1,182 @@
+/*================================HEADER=====================================*/
 header {
-  position: relative;
-  height: 500px;
-  background-image: url("../img/lol.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
+    position: relative;
+    height: 100vh;
+    background-image: url("../img/lol.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
+header .navbar-fixed-top {
+    background: transparent;
+    transition: all .2s ease;
+}
+
+header .screen_img {
+    padding-top: 5%;
+    margin: 0 0 0 5%;
+}
+
+header .screen_img img {
+    max-width: 100%;
+    height: auto;
+}
+
+header .background {
+    visibility: hidden;
+    overflow: hidden;
+}
+
+header .logo {
+    font-size: 2em;
+    color: #ffffff;
+    font-weight: 600;
+    position: absolute;
+    margin-left: 1%;
+    margin-top: 1%;
+}
+
+header:after {
+    content: '';
+    clear: both;
+    display: table;
+}
+
+header .nav {
+    padding-top: 0.1%;
+    margin-bottom: 0.2%;
+    float: right;
+}
+
+header .nav ul {
+    list-style-type: none;
+    text-align: right;
+}
+
+header .nav ul li {
+    font-size: 15px;
+    line-height: 1em;
+    padding: 0;
+    margin: 0 30px 0 0;
+    background: none;
+    display: inline-block;
+    vertical-align: top;
+    text-transform: uppercase;
+}
+
+header .nav ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    opacity: 1;
+    background: transparent;
+}
+
+header .nav ul li a:hover {
+    background: transparent;
+    opacity: 0.7;
+}
+
+header .nav ul li a:focus {
+    background: transparent;
+}
+
+header .active a {
+    border-bottom-color: #f84541;
+    border-bottom-width: medium;
+    border-bottom-style: solid;
+    padding-bottom: 5px;
+    transition: all .2s linear;
+}
+
+header nav .navbar-header .navbar-toggle {
+    color: #ffffff;
+}
+
+.navbar-fixed-top a{
+  text-decoration: none;
+  color: #ffffff;
+}
+
+header nav .user {
+  text-align: right;
+}
+
+#btn_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+#user_box {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 10px;
+}
+
+#user_box h1 {
+  color: #ffffff;
+  font-size: 1.2em;
+  margin: 0;
+  margin-right: 25px;
+}
+
+#btn_container .btn_login,
+#btn_container .btn_register {
+  margin: 15px;
+}
+
+#btn_container .btn_login,
+#btn_container .btn_register {
+  background-color: transparent;
+  border: none;
+  opacity: 0.7;
+  transition: all .2s linear;
+  border-radius: 0;
+}
+
+#user_box .btn_logout {
+  background-color: transparent;
+  border: none;
+  opacity: 0.7;
+  transition: all .2s linear;
+  border-radius: 0;
+  transform: scale(0.7);
+}
+
+#btn_container .btn_login:hover,
+#btn_container .btn_register:hover {
+  background-color: rgb(254, 73, 55);
+  border: none;
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+#user_box .btn_logout:hover {
+  background-color: rgb(254, 73, 55);
+  border: none;
+  opacity: 1;
+  transform: scale(0.9);
+}
+
+#btn_container .btn_login:focus,
+#btn_container .btn_register:focus,
+#user_box .btn_logout:focus {
+  outline: 0;
+}
+
+/*============================END OF HEADER==================================*/
+
+
+.game_holder {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
 
 .center {
   color: #ffffff;
@@ -38,3 +209,38 @@ canvas{
   font-size: 40px;
   font-family: "Gloria Hallelujah"
 }
+
+/*================================FOOTER=====================================*/
+
+#footer {
+    height: auto;
+    background-color: #1b1515;
+    position: relative;
+}
+
+#footer .container {
+    padding: 47px 25px 0 25px;
+}
+
+#footer .meta-box {
+    padding-top: 31px;
+    margin-bottom: 17px;
+    border-top-width: thin;
+    border-top-color: rgb(41, 32, 32);
+    border-top-style: solid;
+}
+
+#footer .meta-box .mail a {
+    font-size: 1.2em;
+    color: #f84541;
+    text-decoration: none;
+}
+
+#footer .meta-box .info span {
+    display: block;
+    color: #d6d6d6;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+}
+
+/*============================END OF FOOTER==================================*/

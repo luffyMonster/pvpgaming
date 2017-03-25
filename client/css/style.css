@@ -199,7 +199,7 @@ header .screen_overlay .register_box .btn_signup:focus,
 }
 
 #games .item .overlay {
-    top: 25%;
+    top: 17%;
     left: 0;
     right: 0;
     bottom: 0;
@@ -250,6 +250,7 @@ header .screen_overlay .register_box .btn_signup:focus,
     border-color: #ffffff;
     font-size: 17px;
     padding: 7px 30px;
+    margin-bottom: 15px;
 }
 
 #games .item:hover .overlay .description {
