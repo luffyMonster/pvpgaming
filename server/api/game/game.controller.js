@@ -112,11 +112,13 @@ module.exports = {
         if (game){
           var ratedIndex;
           game.rates.forEach(function(e, i){
-            if (e.user._id == req.userId){
+            console.log('e', e.user);
+            if (e.user._id == req.body.userId){
               ratedIndex = i;
               return;
             }
           })
+          console.log(ratedIndex);
           if (ratedIndex) game.rates[ratedIndex].value = parseInt(req.body.value);
           else {
             var rate = new Rate({
