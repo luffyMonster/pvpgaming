@@ -31,12 +31,16 @@ header .screen_overlay .img{
     padding: 1%;
 }
 
-header .login_box{
+header .btn_container {
     position: absolute;
-    display: inline-block;
     height: 100%;
     width: 40%;
-    top: 50%;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 header h1 {
@@ -121,38 +125,55 @@ header nav .navbar-header .navbar-toggle {
     color: #ffffff;
 }
 
-header .screen_overlay .login_box .btn_login {
+header .screen_overlay .login_box .btn_login,
+header .screen_overlay .register_box .btn_register {
   background-color: rgb(254, 73, 55);
   border-radius: 0;
   border-style: none;
+  margin: 15px;
+  transition: all .2s linear;
 }
 
-header .screen_overlay .login_box .btn_login:hover {
+header .screen_overlay .login_box .btn_login:hover,
+header .screen_overlay .register_box .btn_register:hover {
   background-color: #cecece;
   color: #000000;
+  transform: scale(1.2);
 }
 
-#login_modal .modal-header .modal-title {
+header .screen_overlay .login_box .btn_login:focus,
+header .screen_overlay .register_box .btn_register:focus,
+header .screen_overlay .login_box .btn_signin:focus,
+header .screen_overlay .register_box .btn_signup:focus {
+  outline: 0;
+}
+
+#login_modal .modal-header .modal-title,
+#register_modal .modal-header .modal-title {
   color: #000000;
   font-family: Impact;
 }
 
-#login_modal .modal-header .modal-title span {
+#login_modal .modal-header .modal-title span,
+#register_modal .modal-header .modal-title span {
   border-bottom-color: rgb(254, 73, 55);
   border-bottom-style: solid;
   border-bottom-width: 5px;
 }
 
-#login_modal .modal-header {
+#login_modal .modal-header,
+#register_modal .modal-header {
   border-bottom-style: none;
 }
 
-#login_modal .modal-body .input-group {
+#login_modal .modal-body .input-group,
+#register_modal .modal-body .input-group {
   padding: 2%;
   font-family: Impact;
 }
 
-#login_modal .modal-body .btn_signin {
+#login_modal .modal-body .btn_signin,
+#register_modal .modal-body .btn_signup {
   color: #ffffff;
   background-color: rgb(254, 73, 55);
   font-family: Helvetica;
@@ -160,7 +181,8 @@ header .screen_overlay .login_box .btn_login:hover {
   margin: 2%;
 }
 
-#login_modal .modal-body .btn_signin:hover {
+#login_modal .modal-body .btn_signin:hover,
+#register_modal .modal-body .btn_signup:hover {
   background-color: #cecece;
   color: #000000;
 }
