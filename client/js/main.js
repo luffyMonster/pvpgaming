@@ -4,24 +4,26 @@ $(document).ready(function () {
     type  : "get",
     url   : "/api/game/list"
   }).then(function(data){
-    console.log(data);
-    var itemHtml = $(itemGameTopTemplate(data.result.splice(0, 4)));
+    var itemHtml = $(itemGameTopTemplate(data));
     $("#item_list").append(itemHtml);
   }).fail(function(error){
     console.log(error);
   }).always(function(){
+
   });
+
   $('body').on('click', '#logout', function(e){
     $.ajax({
       type: 'get',
       url: '/api/user/logout'
     }).then(function(data){
-      alert(data.message)
-      window.location.href = "/"
+      alert(data.message);
+      window.location.href = "";
     }).fail(function(err) {
-      console.log(err)
+      console.log(err);
     })
-  })
+  });
+
   $('#signin').submit(function(event) {
     event.preventDefault();
     var username = $('#username').val();
@@ -35,14 +37,14 @@ $(document).ready(function () {
         if (data.token) {
           $.cookie('token', data.token);
           alert("Login success!");
-          window.location.href = "/";
+          window.location.href = "";
         }
       }
     }).fail(function(error){
       alert(error.responseJSON.message);
     }).always(function(){
     });
-  })
+  });
 
   $('#signup').submit(function(event) {
     event.preventDefault();
@@ -56,7 +58,7 @@ $(document).ready(function () {
     }).then(function(data){
       if (data.status) {
         alert(data.message);
-        window.location.href = "/";
+        window.location.href = "";
       } else {
         alert(data.message);
       }
@@ -64,7 +66,7 @@ $(document).ready(function () {
       console.log(error);
     }).always(function(){
     });
-  })
+  });
 
   $('#features').css('visibility', 'hidden');
   $(window).on('scroll', function () {
@@ -120,12 +122,33 @@ $(document).ready(function () {
 
   $('#login_modal').on('hidden.bs.modal', function (e) {
     $('#signin').trigger("reset");
-  })
+  });
 
   $('#register_modal').on('hidden.bs.modal', function (e) {
     $('#signup').trigger("reset");
-  })
+  });
+
+
+  if (user) {
+    $('#btn_container').css('display', 'none');
+    $('#user_box').css('display', 'absolute');
+    $('#username_welcome').html('Hi, '  + user.username + '!');
+  } else {
+    $('#btn_container').css('display', 'absolute');
+    $('#user_box').css('display', 'none');
+  }
 });
+
+function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
 
 function checkView(idElement, classElement) {
     $(window).on('scroll', function () {

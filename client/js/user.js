@@ -1,1 +1,1 @@
-console.log($.cookie('user'));
+var user = JSON.parse($.cookie('user').substring(2))

@@ -1,0 +1,38 @@
+#login_modal .modal-header .modal-title,
+#register_modal .modal-header .modal-title {
+  color: #000000;
+  font-family: Impact;
+}
+
+#login_modal .modal-header .modal-title span,
+#register_modal .modal-header .modal-title span {
+  border-bottom-color: rgb(254, 73, 55);
+  border-bottom-style: solid;
+  border-bottom-width: 5px;
+}
+
+#login_modal .modal-header,
+#register_modal .modal-header {
+  border-bottom-style: none;
+}
+
+#login_modal .modal-body .input-group,
+#register_modal .modal-body .input-group {
+  padding: 2%;
+  font-family: Impact;
+}
+
+#login_modal .modal-body .btn_signin,
+#register_modal .modal-body .btn_signup {
+  color: #ffffff;
+  background-color: rgb(254, 73, 55);
+  font-family: Helvetica;
+  width: 30%;
+  margin: 2%;
+}
+
+#login_modal .modal-body .btn_signin:hover,
+#register_modal .modal-body .btn_signup:hover {
+  background-color: #cecece;
+  color: #000000;
+}

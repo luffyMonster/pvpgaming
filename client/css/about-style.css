@@ -100,6 +100,53 @@ header nav .navbar-header .navbar-toggle {
   text-decoration: none;
   color: #ffffff;
 }
+
+header nav .user {
+  text-align: right;
+}
+
+#btn_container,
+#user_box {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 10px;
+}
+
+#user_box h1 {
+  color: #ffffff;
+  font-size: 1.2em;
+  margin: 0;
+  margin-right: 25px;
+}
+
+#btn_container .btn_login,
+#btn_container .btn_register,
+#user_box .btn_logout {
+  background-color: transparent;
+  border: none;
+  opacity: 0.7;
+  transition: all .2s linear;
+  transform: scale(0.7);
+  border-radius: 0;
+}
+
+#btn_container .btn_login:hover,
+#btn_container .btn_register:hover,
+#user_box .btn_logout:hover {
+  background-color: rgb(254, 73, 55);
+  border: none;
+  opacity: 1;
+  transform: scale(0.9);
+}
+
+#btn_container .btn_login:focus,
+#btn_container .btn_register:focus,
+#user_box .btn_logout:focus {
+  outline: 0;
+}
+
 /*============================END OF HEADER==================================*/
 
 /*================================FOOTER=====================================*/
