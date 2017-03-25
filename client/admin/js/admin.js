@@ -14,12 +14,13 @@ $(document).ready(function(){
   $('body').on('click', '#_create', function(){
     console.log('create');
     $('#modal_create').modal('toggle');
+    $('.success').empty();
+    $('.err_msg').empty();
   });
 
   $('body').on('click', '.btn_edit', function(){
     $('#modal_edit').modal('toggle');
     var user = findUserById(this.id.split('-')[1]);
-    console.log(user);
     $('#modal_edit #username').val(user.username);
     $('#modal_edit #name').val(user.name);
     $('#modal_edit #age').val(user.age);
@@ -33,6 +34,8 @@ $(document).ready(function(){
     } else {
       $('#modal_edit input:radio[name=role]').filter('[value=user]').prop('checked', true);
     }
+    $('.success').empty();
+    $('.err_msg').empty();
   });
   $('#edit-form').submit(function(event){
     event.preventDefault();
@@ -42,7 +45,6 @@ $(document).ready(function(){
       data[v.name] = v.value;
     });
     data['username'] = $('#username').val();
-    console.log(data);
     $.ajax({
       type: "put",
       url: "/api/user/edit",
@@ -55,11 +57,13 @@ $(document).ready(function(){
       }
     }).then(function(data){
       console.log(data);
-      var _html = '<p class="red bold">';
       if (data.status){
-        _html = '<p class="green bold">'
+        $('.success').html(data.message);
+        $('.err_msg').html('');
+      } else {
+        $('.err_msg').html(data.message);
+        $('.success').html('');
       }
-      $('#result').html(_html+data.message+'!</p>');
     }).fail(function(err){
       console.log(err);
     });
@@ -71,18 +75,19 @@ $(document).ready(function(){
     $.each($('#create-form').serializeArray(), function(i, v){
       data[v.name] = v.value;
     });
-    console.log(data);
     $.ajax({
       type: "post",
       url: "/api/user/create",
       data: data
     }).then(function(data){
       console.log(data);
-      var _html = '<p class="red bold">';
       if (data.status){
-        _html = '<p class="green bold">'
+        $('.success').html(data.message);
+        $('.err_msg').html('');
+      } else {
+        $('.err_msg').html(data.message);
+        $('.success').html('');
       }
-      $('#result').html(_html+data.message+'!</p>');
     }).fail(function(err){
       console.log(err);
     });

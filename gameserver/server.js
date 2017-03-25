@@ -22,6 +22,5 @@ app.use(function (req, res, next) {
 });
 
 io.sockets.on('connection', function(socket){
-  // setTimeout(()=>console.log(), 500);
   game.init(socket);
 });

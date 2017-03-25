@@ -6,8 +6,8 @@ var path = require('path');
 var session = require('express-session');
 var cookieParser = require('cookie-parser')
 var passport = require('passport');
-
 var auth = require('../api/auth/auth.service');
+
 
 module.exports = function(app) {
   var env = app.get('env');
@@ -15,11 +15,16 @@ module.exports = function(app) {
   app.use(cookieParser('techkids', {maxAge: 120}));
   app.use(session({
     secret: 'techkids'
+
   }));
 
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
 
+  app.use((req, res, next)=>{
+    res.locals.user = 'aaa' || null;
+    next();
+  });
   // app.use(passport.initialize());
   // app.use(passport.session());
 

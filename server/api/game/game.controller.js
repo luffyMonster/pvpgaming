@@ -29,7 +29,24 @@ module.exports = {
           data.background = req.body.background;
           data.logo = req.body.logo;
           data.description = req.body.description
+        } else{
+          return res.json({status: false, message: 'Game is not found!'});
         }
+        //validate
+        var err;
+        function isEmpty(str){
+          return str == '' || !str;
+        }
+        var keys = ['name', 'gameurl', 'background', 'logo', 'description'];
+        keys.forEach(function(e){
+          if (isEmpty(data[e])) {
+            err = {status: false, message: 'Somthing is empty'};
+            return;
+          }
+        });
+        if (err)  return res.json(err);
+
+
         data.save(function(err, newData){
           if (err){
             res.json({status: false, message: 'Update failed!!!'});
@@ -46,6 +63,7 @@ module.exports = {
   },
 
   addGame: function(req, res) {
+    if (!req.body.name || req.body.name=='') return res.json({status: false, message: 'Name is require'})
     Game.findOne({name: req.body.name}).exec(function(err, data){
       if (data) {
         res.json({status: false, message: 'Game are already exist!'})
@@ -57,6 +75,20 @@ module.exports = {
           logo: req.body.logo,
           description: req.body.description
         }
+
+        //validate
+        var err;
+        function isEmpty(str){
+          return str == '' || !str;
+        }
+        var keys = ['name', 'gameurl', 'background', 'logo', 'description'];
+        keys.forEach(function(e){
+          if (isEmpty(newGame[e])) {
+            err = {status: false, message: 'Somthing is empty'};
+            return;
+          }
+        });
+        if (err)  return res.json(err);
         Game.create(newGame, function(err, data){
           res.json({status: true, message: 'Success'});
         });

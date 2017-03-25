@@ -29,15 +29,24 @@ module.exports = {
           data.role = req.body.role;
           data.name = req.body.name;
         }
-        data.save(function(err, newData){
-          if (err){
-            res.json({status: false, message: 'Update failed!!!'});
-          }
-          else{
-            res.json({status: true, message: 'Update succeed!!!'});
-          }
-        });
-      });
+        var err;
+        function isEmpty(str){
+          return str == '' || !str;
+        }
+        if (isEmpty(data.name) || isEmpty(data.role)) err = {status: false, message: 'Some field is empty! Please fill it!'}
+        if (err){
+          res.json(err);
+        } else {
+          data.save(function(err, newData){
+            if (err){
+              res.json({status: false, message: 'Update failed!!!'})
+            }
+            else{
+              res.json({status: true, message: 'Update succeed!!!'})
+            }
+          })
+        }
+      })
     }
     else {
       res.json({status: false, message: 'Update fail!!!'})
@@ -45,6 +54,7 @@ module.exports = {
   },
   addUser: function(req, res) {
     if (req.body) {
+      if (req.body.username == '' || !req.body.username) return res.json({status: false, message: 'Account is require'})
       User.findOne({username: req.body.username}).exec(function(err, data){
         if (data) {
           res.json({status: false, message: 'User are already exist!'})
@@ -56,10 +66,21 @@ module.exports = {
             age: req.body.age,
             name: req.body.name
           }
-          console.log(newUser);
-          User.create(newUser, function(err, data){
-            res.json({status: true, message: 'Success'});
-          });
+          var err;
+          function isEmpty(str){
+            return str == '' || !str;
+          }
+          if ( isEmpty(newUser.username) || isEmpty(newUser.password) || isEmpty(newUser.name) || isEmpty(newUser.role)) {
+            err = { status: false,  message: 'Some field is empty! Please fill it'};
+          }
+          if (err){
+            res.json(err);
+          } else {
+            console.log(newUser);
+            User.create(newUser, function(err, data){
+              res.json({status: true, message: 'Success'});
+            });
+          }
         }
       });
       // var newUser = {

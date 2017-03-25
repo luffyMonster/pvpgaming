@@ -1,6 +1,4 @@
 $(document).ready(function () {
-  console.log($.cookie);
-
   var itemGameTopTemplate = Handlebars.compile($("#item-game-top-template").html());
   $.ajax({
     type  : "get",
@@ -31,7 +29,7 @@ $(document).ready(function () {
         }
       }
     }).fail(function(error){
-      alert(error.responseText);
+      alert(error.responseJSON.message);
     }).always(function(){
     });
   })

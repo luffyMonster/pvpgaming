@@ -99,6 +99,7 @@
           <div class="modal-body">
             <div class="row margin_left">
               <div class="right_panel">
+                <div id='msg'></div>
                 <form id="create-form" method="post">
                   <div class="row input_box">
                     <label for="name">Name</label>
@@ -125,11 +126,14 @@
                         Create
                       </button>
                     </div>
-                    <div id="result">
-                    </div>
                   </div>
                 </form>
-
+                <div class='result-box'>
+                  <div class="success alert-success">
+                  </div>
+                  <div class="err_msg alert-danger">
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -189,9 +193,14 @@
                     </div>
                   </div>
                 </form>
-                <div id="result">
+                <div class='result-box'>
+                  <div class="success alert-success">
+                  </div>
+                  <div class="err_msg alert-danger">
+                  </div>
                 </div>
-              </div>
+
+                </div>
             </div>
           </div>
         </div><!-- /.modal-content -->

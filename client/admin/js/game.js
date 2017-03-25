@@ -30,6 +30,9 @@ $(document).ready(function(){
     $('#game-modal').modal('toggle');
     $('#gridSystemModalLabel').text('Create new Game');
     $('#submit').text('Create');
+    $('.success').empty();
+    $('.err_msg').empty();
+    $('#name').prop('disabled', false);
   });
   $('body').on('click', '.btn_edit', function(){
     $('#game-modal').modal('toggle');
@@ -37,11 +40,13 @@ $(document).ready(function(){
     $('#submit').text('Save');
     var game = findGameById(this.id.split('-')[1]);
     var listinput = ['name', 'gameurl', 'logo', 'background', 'description'];
-    console.log(listinput);
+    $('#name').prop('disabled', true);
     listinput.forEach(function(item){
       // console.log(item);
-      $('#{item}').val(game[item]);
+      $(`#${item}`).val(game[item]);
     });
+    $('.success').empty();
+    $('.err_msg').empty();
   });
 
   $('body').on('click', '.btn_delete', function(){
@@ -86,13 +91,14 @@ $(document).ready(function(){
       };
     };
     //call ajax
-    console.log(objAjax);
     $.ajax(objAjax).then(function(data){
-      var _html = '<p class="red bold">';
       if (data.status){
-        _html = '<p class="green bold">'
+        $('.success').html(data.message);
+        $('.err_msg').html('');
+      } else {
+        $('.err_msg').html(data.message);
+        $('.success').html('');
       }
-      $('#result').html(_html+data.message+'!</p>');
     }).fail(function(err){
       console.log(err);
     });

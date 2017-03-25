@@ -15,16 +15,6 @@ var user = new Schema({
   username: {
     type: String,
     lowercase: true,
-    trim: true,
-    unique: [true, 'Username already existed!'],
-    require: [true, 'Username is required!'],
-    default: '',
-    validate:{
-      validator:function(v){
-        return true;
-      },
-      message: ''
-    }
   },
   role: {
     type: String,
@@ -34,7 +24,6 @@ var user = new Schema({
   salt: String,
   password: {
     type: String,
-    require: [true, 'Password is required!']
   },
   gender: {
     type: String,
