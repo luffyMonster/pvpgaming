@@ -14,11 +14,11 @@ router.put('/edit',controller.edit);
 router.delete('/delete',controller.deleteUser);
 router.post('/create',controller.addUser);
 router.get('/dashboard', auth.isAuthenticated(), (req, res)=>{
-  console.log(req.user);
   res.send(req.user);
 });
 router.get('/logout', auth.isAuthenticated(), (req, res)=>{
   req.logout();
+  res.cookie('user', undefined);
   res.send({message: ' You are logged out!'})
   req.redirect('/');
 });

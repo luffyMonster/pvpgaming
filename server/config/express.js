@@ -21,12 +21,8 @@ module.exports = function(app) {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
 
-  app.use((req, res, next)=>{
-    res.locals.user = 'aaa' || null;
-    next();
-  });
-  // app.use(passport.initialize());
-  // app.use(passport.session());
+  app.use(passport.initialize());
+  app.use(passport.session());
 
   var appPath = path.join(config.root, 'client');
   var bowers = path.join(config.root, 'bower_components');

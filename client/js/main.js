@@ -4,13 +4,24 @@ $(document).ready(function () {
     type  : "get",
     url   : "/api/game/list"
   }).then(function(data){
+    console.log(data);
     var itemHtml = $(itemGameTopTemplate(data.result.splice(0, 4)));
     $("#item_list").append(itemHtml);
   }).fail(function(error){
     console.log(error);
   }).always(function(){
   });
-
+  $('body').on('click', '#logout', function(e){
+    $.ajax({
+      type: 'get',
+      url: '/api/user/logout'
+    }).then(function(data){
+      alert(data.message)
+      window.location.href = "/"
+    }).fail(function(err) {
+      console.log(err)
+    })
+  })
   $('#signin').submit(function(event) {
     event.preventDefault();
     var username = $('#username').val();
@@ -22,7 +33,6 @@ $(document).ready(function () {
     }).then(function(data){
       if (data) {
         if (data.token) {
-          //save token to cookie
           $.cookie('token', data.token);
           alert("Login success!");
           window.location.href = "/";
