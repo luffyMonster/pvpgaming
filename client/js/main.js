@@ -7,6 +7,16 @@ $(document).ready(function () {
     url   : "/api/game/list"
   }).then(function(data){
     gameList = data;
+    console.log(data.result[0]._id);
+    $.ajax({
+      type: 'post',
+      data: {gameId: data.result[1]._id, userId: user._id, value: 3},
+      url: '/api/game/rateupdate'
+    }).then(function(data){
+      console.log(data);
+    }).then(function(err){
+      console.log('err');
+    });
     var itemHtml = $(itemGameTopTemplate(data));
     $("#item_list").append(itemHtml);
     console.log(gameList.result[0]._id);

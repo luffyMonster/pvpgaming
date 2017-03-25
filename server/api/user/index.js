@@ -18,9 +18,9 @@ router.get('/dashboard', auth.isAuthenticated(), (req, res)=>{
 });
 router.get('/logout', auth.isAuthenticated(), (req, res)=>{
   req.logout();
-  res.cookie('user', undefined);
+  res.cookie('user', null);
+  res.cookie('token', null);
   res.send({message: ' You are logged out!'})
-  req.redirect('/');
 });
 // router.get('/test', auth.isAuthenticated(), (req, res) => {
 //   res.end("chua login thi ko dc vao!, da nhin thay dong chu nay thi la da login!");

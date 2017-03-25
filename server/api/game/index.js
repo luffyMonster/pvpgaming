@@ -9,5 +9,5 @@ router.get('/list', controller.getAll);
 router.put('/edit',controller.edit);
 router.delete('/delete',controller.deleteGame);
 router.post('/create',controller.addGame);
-
+router.post('/rateupdate',controller.rateUpdate);
 module.exports = router;
