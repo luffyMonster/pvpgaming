@@ -10,7 +10,7 @@ $(document).ready(function () {
     console.log(data.result[0]._id);
     $.ajax({
       type: 'post',
-      data: {gameId: data.result[1]._id, userId: user._id, value: 3},
+      data: {gameId: data.result[0]._id, userId: user._id, value: 3},
       url: '/api/game/rateupdate'
     }).then(function(data){
       console.log(data);

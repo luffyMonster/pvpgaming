@@ -2,12 +2,13 @@
 
 var Game = require('./game.model');
 var mongoose = require('mongoose');
+var ObjectIdCast = mongoose.Types.ObjectId;
 var Schema = mongoose.Schema;
 //config Rate
 var RateSchema = new Schema({
   user: {type: Schema.Types.ObjectId, ref: 'User'},
   value: Number
-});
+},{ _id: false });
 var Rate = mongoose.model('Rate', RateSchema)
 
 module.exports = {
@@ -104,42 +105,91 @@ module.exports = {
     });
   },
   rateUpdate: function(req, res){
-    console.log(req.body);
       Game.findById(req.body.gameId)
       .populate('rates.user')
+      .lean()
       .exec(function(err, game){
         if (err) return console.log(err);
         if (game){
-          var ratedIndex;
+          var ratedIndex, rate, userId = null;
+          try {
+            userId = ObjectIdCast(req.body.userId);
+          } catch (e) {
+
+          }
           game.rates.forEach(function(e, i){
-            console.log('e', e.user);
-            if (e.user._id == req.body.userId){
+            if (e.user._id + '' == userId + '' || e.user + '' == userId + ''){
               ratedIndex = i;
-              return;
             }
           })
-          console.log(ratedIndex);
-          if (ratedIndex) game.rates[ratedIndex].value = parseInt(req.body.value);
+          if (ratedIndex) {
+            rate = game.rates[ratedIndex];
+            rate.value = parseInt(req.body.value);
+          }
           else {
-            var rate = new Rate({
-              user: req.body.userId,
+            rate = new Rate({
+              user: userId,
               value: parseInt(req.body.value)
             });
             game.rates.push(rate);
           }
-          game.save(function(err, newData){
-            if (err) console.log(err);
-            res.json({status: true, message: 'Success', data: newData})
-            console.log(newData.rates[0].user);
+          // game.save(function(err, newData){
+          //   if (err) console.log(err);
+          //   rate.save();
+          //   res.json({status: true, message: 'Success', data: newData})
+          //   // newData.rates.forEach(function(e){
+          //   //   console.log(e.user);
+          //   // })
+          // })
+          Game.findByIdAndUpdate(req.body.gameId, game, function(err) {
+            if(err) {
+              res.json({ status: false, message: 'Update false!'});
+            } else {
+              res.json({ status: true, message: 'Updated!'});
+            }
           })
+          console.log(game);
         } else {
           console.log('Game not found');
         }
       })
   },
   getAll : function(req, res){
-    Game.find().populate('rates.user').exec(function(err, data){
-      res.json({status: true, result: data});
-    });
+    var aggregateArray = [
+      {
+        $lookup: {
+          from :'users',
+          localField: 'rates.user',
+          foreignField: '_id',
+          as: 'rates.user'
+        }
+      },
+      {
+        $project: {
+          _id: 1,
+          name: 1,
+          gameurl: 1,
+          background: 1,
+          logo: 1,
+          description: 1,
+          rates: 1
+        }
+      }
+      // {
+      //   $lookup: {
+      //     from: 'User',
+      //     localField: 'rates.user',
+      //     foreignField: '_id',
+      //     as: 'rates.user'
+      //   }
+      // }
+    ];
+    Game.aggregate(aggregateArray)
+      .exec((err, docs = []) => {
+        res.json(docs)
+      })
+    // Game.find().populate('rates.user').exec(function(err, data){
+    //   res.json({status: true, result: data});
+    // });
   }
 }

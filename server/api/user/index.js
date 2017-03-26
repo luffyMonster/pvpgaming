@@ -18,8 +18,8 @@ router.get('/dashboard', auth.isAuthenticated(), (req, res)=>{
 });
 router.get('/logout', auth.isAuthenticated(), (req, res)=>{
   req.logout();
-  res.cookie('user', null);
-  res.cookie('token', null);
+  res.cookie('user', undefined);
+  res.cookie('token', undefined);
   res.send({message: ' You are logged out!'})
 });
 // router.get('/test', auth.isAuthenticated(), (req, res) => {
