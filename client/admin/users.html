@@ -13,10 +13,9 @@
   </head>
   <body>
     <div class="container">
-      <div class="jumbotron">
         <h1>User management</h1>
         <p>Managament game, user for admin</p>
-      </div>
+        <hr>
     </div>
     <div class="container">
       <div class="row body">
@@ -158,15 +157,15 @@
               <div class="right_panel">
                 <form id="edit-form" method="put">
                   <div class="row input_box">
-                    <div class="col-md-6">
-                      <span>Username</span>
+                      <label for="username">Username</label>
                       <input id="username" type="text" class="form-control" name="username" disabled>
-                      <span>Name</span>
-                      <input id="name" type="text" class="form-control" name="name">
-                    </div>
+                  </div>
+                  <div class="row input_box">
+                    <label for="name">Name</label>
+                    <input id="name" type="text" class="form-control" name="name">
                   </div>
                   <div class="row role_checkbox">
-                    <span>Gender</span>
+                    <label>Gender</label>
                     <div class="admin_chk">
                       <input type="radio" name="gender" value="male"> Male
                     </div>
@@ -175,13 +174,11 @@
                     </div>
                   </div>
                   <div class="row input_box">
-                    <div class="col-md-6 account_input">
-                      <span>Age</span>
+                      <label for="age">Age</label>
                       <input id="age" type="number" class="form-control" name="age">
-                    </div>
                   </div>
                   <div class="row role_checkbox">
-                    <span>Role</span>
+                    <label>Role</label>
                     <div class="admin_chk">
                       <input type="radio" name="role" value="admin"> Admin
                     </div>
