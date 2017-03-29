@@ -105,6 +105,7 @@ module.exports = {
     });
   },
   rateUpdate: function(req, res){
+      //res.body = {gameid, value, userId}
       Game.findById(req.body.gameId)
       .lean()
       .exec(function(err, game){
@@ -129,6 +130,7 @@ module.exports = {
       })
   },
   getRatedAvg: function(req, res){
+    //res.query = {gameid}
       Game.findById(req.query.gameId).exec(function(err, game){
         var sum = 0;
         game.rates.forEach(function(e){
@@ -139,6 +141,7 @@ module.exports = {
       })
   },
   getUserRatedById: function(req, res){
+    //res.query = {gameid, userId}
     Game.findById(req.query.gameId).exec(function(err, game){
       var stop = false;
       game.rates.forEach(function(e){

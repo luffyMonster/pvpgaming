@@ -6,9 +6,9 @@ $(document).ready(function () {
     type  : "get",
     url   : "/api/game/list"
   }).then(function(data){
+    gameList = data;
     var itemHtml = $(itemGameTopTemplate(data));
     $("#item_list").append(itemHtml);
-    console.log(gameList.result[0]._id);
     for (var i = 0; i < gameList.result.length; i++) {
       $('#' + gameList.result[i]._id).val(i);
       $('#' + gameList.result[i]._id).rating({displayOnly: true, step: 0.5});
