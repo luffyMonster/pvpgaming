@@ -106,90 +106,56 @@ module.exports = {
   },
   rateUpdate: function(req, res){
       Game.findById(req.body.gameId)
-      .populate('rates.user')
       .lean()
       .exec(function(err, game){
         if (err) return console.log(err);
-        if (game){
-          var ratedIndex, rate, userId = null;
-          try {
-            userId = ObjectIdCast(req.body.userId);
-          } catch (e) {
-
+        var updated;
+        game.rates.forEach(function(e, i){
+          if (e.userId == req.body.userId){
+            game.rates[i].value  = req.body.value;
+            updated = true;
           }
-          game.rates.forEach(function(e, i){
-            if (e.user._id + '' == userId + '' || e.user + '' == userId + ''){
-              ratedIndex = i;
-            }
-          })
-          if (ratedIndex) {
-            rate = game.rates[ratedIndex];
-            rate.value = parseInt(req.body.value);
-          }
-          else {
-            rate = new Rate({
-              user: userId,
-              value: parseInt(req.body.value)
-            });
-            game.rates.push(rate);
-          }
-          // game.save(function(err, newData){
-          //   if (err) console.log(err);
-          //   rate.save();
-          //   res.json({status: true, message: 'Success', data: newData})
-          //   // newData.rates.forEach(function(e){
-          //   //   console.log(e.user);
-          //   // })
-          // })
-          Game.findByIdAndUpdate(req.body.gameId, game, function(err) {
-            if(err) {
-              res.json({ status: false, message: 'Update false!'});
-            } else {
-              res.json({ status: true, message: 'Updated!'});
-            }
-          })
-          console.log(game);
-        } else {
-          console.log('Game not found');
+        });
+        if (!updated){
+          game.rates.push({userId: req.body.userId, value: req.body.value})
         }
+        Game.findByIdAndUpdate(req.body.gameId, game, function(err) {
+          if(err) {
+            res.json({ status: false, message: 'Update false!'});
+          } else {
+            res.json({ status: true, message: 'Updated!'});
+          }
+        })
       })
   },
-  getAll : function(req, res){
-    var aggregateArray = [
-      {
-        $lookup: {
-          from :'users',
-          localField: 'rates.user',
-          foreignField: '_id',
-          as: 'rates.user'
-        }
-      },
-      {
-        $project: {
-          _id: 1,
-          name: 1,
-          gameurl: 1,
-          background: 1,
-          logo: 1,
-          description: 1,
-          rates: 1
-        }
-      }
-      // {
-      //   $lookup: {
-      //     from: 'User',
-      //     localField: 'rates.user',
-      //     foreignField: '_id',
-      //     as: 'rates.user'
-      //   }
-      // }
-    ];
-    Game.aggregate(aggregateArray)
-      .exec((err, docs = []) => {
-        res.json(docs)
+  getRatedAvg: function(req, res){
+      Game.findById(req.query.gameId).exec(function(err, game){
+        var sum = 0;
+        game.rates.forEach(function(e){
+          sum += e.value;
+        })
+        if (game.rates.length == 0 ) res.json({status: true, avg: 0})
+        else res.json({status: true, avg: sum*1.0/game.rates.length})
       })
-    // Game.find().populate('rates.user').exec(function(err, data){
-    //   res.json({status: true, result: data});
-    // });
+  },
+  getUserRatedById: function(req, res){
+    Game.findById(req.query.gameId).exec(function(err, game){
+      var stop = false;
+      game.rates.forEach(function(e){
+        if (req.query.userId == e.userId){
+          res.json({status: true, message: 'Rated!', rate: e.value});
+          stop = true;
+          return
+        }
+      })
+      if (!stop){
+        res.json({status: false, message: 'Unrated!'})
+      }
+    })
+  },
+  getAll : function(req, res){
+    Game.find().exec(function(err, data){
+      res.json({status: true, result: data});
+    });
   }
 }

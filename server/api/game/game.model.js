@@ -6,9 +6,9 @@ var Schema = mongoose.Schema;
 var findOrCreate = require('mongoose-find-one-or-create');
 
 var RateSchema = new Schema({
-  user: {type: Schema.Types.ObjectId, ref: 'User'},
+  userId: String,
   value: Number
-});
+},{_id: false});
 var GameSchema = new Schema({
   name: String,
   gameurl: String,
