@@ -16,6 +16,9 @@
     <script src="bower_components/bootstrap-star-rating/js/star-rating.js" type="text/javascript"></script>
     <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="js/user.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="/css/chat.css">
+    <script type="text/javascript" src="/js/chat.js"></script>
 </head>
 <body>
 <header id="home" class="header container-fluid">
@@ -191,7 +194,40 @@
 
     </section>
 </main>
-
+//Chat
+<div class="popup-box chat-popup hide" id="chat-service">
+  <div class="popup-head">
+    <div class="popup-head-left pull-left user">
+      {{User}}
+    </div>
+    <div class="popup-head-right pull-right">
+        <button data-widget="remove" id="downClass" class="chat-header-button pull-right" type="button">
+          <i class="glyphicon glyphicon-menu-down"></i>
+        </button>
+    </div>
+  </div>
+  <div class="popup-messages">
+    <div class="direct-chat-messages" id='divExample'>
+    </div>
+  </div>
+  <div class="popup-messages-footer">
+    <textarea id="status_message" placeholder="Type a message..." rows="10" cols="40" name="message"></textarea>
+    <div class="btn-footer">
+      <button class="bg_none pull-right send">Send</button>
+    </div>
+  </div>
+</div>
+<div class="show" id="chat-service-1">
+  <div class="popup-head">
+    <div class="center">
+      Chat Box
+    </div>
+    <div class="popup-head-right pull-right">
+        <button data-widget="remove" id="upClass" class="chat-header-button pull-right" type="button"
+            title="Click here to chat"><i class="glyphicon glyphicon-menu-up"></i></button>
+    </div>
+  </div>
+</div>
 <footer id="footer">
     <div class="container text-center">
         <div class="meta-box row">
@@ -256,6 +292,14 @@
       </a>
   </div>
   {{/each}}
+</script>
+<script id="message-chat-template" type="text/x-handlebars-template">
+    <div class="direct-chat-info clearfix">
+      <span class="direct-chat-name pull-left">{{sender}}</span>
+    </div>
+    <div class="direct-chat-text">
+      {{msg}}
+    </div>
 </script>
 </body>
 </html>

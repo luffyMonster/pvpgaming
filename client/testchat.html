@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script type="text/javascript" src="libs/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="libs/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript" src="libs/jquery/jquery.cookie.js"></script>
+    <link rel="stylesheet" type="text/css" href="libs/bootstrap/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="libs/handlebars.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="/css/chat.css">
+    <script type="text/javascript" src="/js/chat.js"></script>
+    <script type="text/javascript" src="/js/user.js"></script>
+  </head>
+  <body>
+    //Chat
+    <div class="popup-box chat-popup hide" id="chat-service">
+      <div class="popup-head">
+        <div class="popup-head-left pull-left user">
+          {{User}}
+        </div>
+        <div class="popup-head-right pull-right">
+            <button data-widget="remove" id="downClass" class="chat-header-button pull-right" type="button">
+              <i class="glyphicon glyphicon-menu-down"></i>
+            </button>
+        </div>
+      </div>
+			<div class="popup-messages">
+			  <div class="direct-chat-messages" id='divExample'>
+        </div>
+      </div>
+      <div class="popup-messages-footer">
+        <textarea id="status_message" placeholder="Type a message..." rows="10" cols="40" name="message"></textarea>
+        <div class="btn-footer">
+          <button class="bg_none pull-right send">Send</button>
+        </div>
+			</div>
+	  </div>
+    <div class="show" id="chat-service-1">
+      <div class="popup-head">
+        <div class="center">
+          Chat Box
+        </div>
+        <div class="popup-head-right pull-right">
+            <button data-widget="remove" id="upClass" class="chat-header-button pull-right" type="button"
+                title="Click here to chat"><i class="glyphicon glyphicon-menu-up"></i></button>
+        </div>
+      </div>
+    </div>
+    <script id="message-chat-template" type="text/x-handlebars-template">
+        <div class="direct-chat-info clearfix">
+          <span class="direct-chat-name pull-left">{{sender}}</span>
+        </div>
+        <div class="direct-chat-text">
+          {{msg}}
+        </div>
+    </script>
+
+  </body>
+</html>
