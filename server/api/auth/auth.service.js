@@ -22,7 +22,6 @@ module.exports = {
       .use(function(req, res, next) {
         // allow access_token to be passed through query parameter as well
         if (req.cookies.token) {
-            console.log(req.cookies.token);
           // if (req.query && req.query.hasOwnProperty('access_token')) {
             req.headers.authorization = 'Bearer ' + req.cookies.token
           // }
@@ -41,10 +40,9 @@ module.exports = {
           })
           .catch(err => next(err));
       }).use(function(err, req, res, next){
-        if (err.name == 'UnauthorizedError'){
-          res.redirect('/')
-          next()
-        }
+        if (err && err.name == 'UnauthorizedError'){
+          res.redirect('/');
+        } else next();
       });
   },
 

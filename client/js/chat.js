@@ -36,5 +36,9 @@ $(document).ready(function(){
     console.log(data);
     var itemHtml = $(msg_chat_template(data));
     $('.direct-chat-messages').append(itemHtml);
+    var objDiv = $('.direct-chat-messages');
+    if (objDiv.length > 0){
+        objDiv[0].scrollTop(objDiv[0].scrollHeight);
+    }
   })
 })

@@ -24,7 +24,7 @@ $(document).ready(function () {
       type: 'get',
       url: '/api/user/logout'
     }).then(function(data){
-      window.location.href = "";
+      window.location.href = "/";
     }).fail(function(err) {
       console.log(err);
     })

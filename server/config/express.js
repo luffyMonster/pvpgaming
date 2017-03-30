@@ -11,13 +11,11 @@ var auth = require('../api/auth/auth.service');
 
 module.exports = function(app) {
   var env = app.get('env');
-
   app.use(cookieParser('techkids', {maxAge: 120}));
   app.use(session({
     secret: 'techkids'
-
   }));
-
+  app.all('/admin', auth.hasRole('admin'));
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
 
