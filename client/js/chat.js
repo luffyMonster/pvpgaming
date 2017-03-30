@@ -2,7 +2,6 @@ $(document).ready(function(){
   var socket = io.connect();
   var sender;
   var msg_chat_template = Handlebars.compile($("#message-chat-template").html());
-  console.log(user);
   if (user) {
     $('.user').html('Hey, ' + user.name);
     sender = user.name;
@@ -35,10 +34,17 @@ $(document).ready(function(){
   socket.on('chat message', function(data){
     console.log(data);
     var itemHtml = $(msg_chat_template(data));
-    $('.direct-chat-messages').append(itemHtml);
-    var objDiv = $('.direct-chat-messages');
-    if (objDiv.length > 0){
-        objDiv[0].scrollTop(objDiv[0].scrollHeight);
+    var objDiv = $('#divExample');
+    objDiv.append(itemHtml);
+    var scrollObj = $('.popup-messages');
+    if (scrollObj.length > 0){
+        // console.log(objDiv[0].scrollHeight);
+        // console.log(objDiv.scrollTop());
+        scrollObj.scrollTop(scrollObj[0].scrollHeight);
+        // console.log(objDiv.scrollTop());
+        // scrollObj.attr('scrollTop', scrollObj[0].scrollHeight);
+        // console.log(scrollObj.scrollTop());
+        // objDiv.prop('scrollTop', objDiv[0].scrollHeight);
     }
   })
 })

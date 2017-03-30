@@ -3,6 +3,10 @@
   "engines": {
     "node": ">=4"
   },
+  "scripts": {
+    "start": "gulp nodemon",
+    "postinstall": "bower install && mongorestore && gulp && npm install"
+  },
   "devDependencies": {
     "browser-sync": "^2.2.1",
     "del": "^2.2.0",
@@ -63,6 +67,7 @@
     "mongoose": "*",
     "passport": "*",
     "passport-http": "*",
-    "passport-local": "*"
+    "passport-local": "*",
+    "socket.io": "^1.7.3"
   }
 }

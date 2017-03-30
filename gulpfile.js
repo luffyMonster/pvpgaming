@@ -171,3 +171,6 @@ gulp.task('build:server', () => {
     ], {cwdbase: true})
         .pipe(gulp.dest("dist"));
 });
+gulp.task('run-server', ['default', 'nodemon'], function(){
+  console.log('build app success and running on 8080');
+});
