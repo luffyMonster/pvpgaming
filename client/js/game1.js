@@ -1,16 +1,8 @@
 $(document).ready(function () {
-    var gameId;
-    $.ajax({
-      type  : "get",
-      url   : "/api/game/list"
-    }).then(function(data){
-      if (data) {
-        gameId = data.result[0]._id;
-      }
-    }).fail(function(error){
-      console.log(error);
-    }).always(function(){
-    });
+    var gameId = '58c56039265d8c025c6af590';
+    if (user) {
+      var userId = user._id;
+    }
 
     $(window).on('scroll', function () {
         if ($(window).scrollTop() == 0) {
@@ -75,10 +67,47 @@ $(document).ready(function () {
       });
     });
 
-    $("#input_rate").rating().on("rating.clear", function(event) {
-        alert("Your rating is reset")
+    if (user) {
+      console.log(gameId);
+      console.log(userId);
+      $.ajax({
+        type  : "get",
+        url   : "/api/game/getUserRatedById",
+        data  : { gameId, userId }
+      }).then(function(data){
+        $("#input_rate").val(data.rate);
+        $("#input_rate").rating();
+      }).fail(function(error){
+        console.log(error);
+      }).always(function(){
+      });
+    }
+
+    $("#input_rate").on("rating.clear", function(event) {
+      var value = 0;
+      $.ajax({
+        type  : "post",
+        url   : "/api/game/rateupdate",
+        data  : { gameId, userId, value }
+      }).then(function(data){
+        if (data.status) {
+          console.log(data);
+        }
+      }).fail(function(error){
+        console.log(error);
+      }).always(function(){
+      });
     }).on("rating.change", function(event, value, caption) {
-      console.log(value + ' ' + user.username + ' ' + gameId);
+      $.ajax({
+        type  : "post",
+        url   : "/api/game/rateupdate",
+        data  : { gameId, userId, value }
+      }).then(function(data){
+        console.log(data);
+      }).fail(function(error){
+        console.log(error);
+      }).always(function(){
+      });
     });
 
     if (user) {

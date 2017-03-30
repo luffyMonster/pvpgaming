@@ -137,7 +137,7 @@ module.exports = {
           sum += e.value;
         })
         if (game.rates.length == 0 ) res.json({status: true, avg: 0})
-        else res.json({status: true, avg: sum*1.0/game.rates.length})
+        else res.json({status: true, gameId: game._id, avg: sum*1.0/game.rates.length})
       })
   },
   getUserRatedById: function(req, res){

@@ -1,5 +1,6 @@
 $(document).ready(function () {
   var gameList;
+  var gameId = [];
 
   var itemGameTopTemplate = Handlebars.compile($("#item-game-top-template").html());
   $.ajax({
@@ -7,12 +8,30 @@ $(document).ready(function () {
     url   : "/api/game/list"
   }).then(function(data){
     gameList = data;
+    for (var i = 0; i < gameList.result.length; i++) {
+      gameId[i] = gameList.result[i]._id;
+      console.log(gameId[i]);
+    }
     var itemHtml = $(itemGameTopTemplate(data));
     $("#item_list").append(itemHtml);
-    for (var i = 0; i < gameList.result.length; i++) {
-      $('#' + gameList.result[i]._id).val(i);
-      $('#' + gameList.result[i]._id).rating({displayOnly: true, step: 0.5});
-    }
+
+    // for (var i = 0; i < gameId.length; i++) {
+    //   var id = gameId[i]
+    //   console.log(id);
+    //   $.ajax({
+    //     type  : "get",
+    //     url   : "/api/game/getRatedAvg",
+    //     data  : {id}
+    //   }).then(function(data){
+    //     console.log(data);
+    //     $('#' + gameId).val(data.avg);
+    //     $('#' + gameId).rating({displayOnly: true, step: 0.25});
+    //   }).fail(function(error){
+    //     console.log(error);
+    //   }).always(function(){
+    //
+    //   });
+    // }
   }).fail(function(error){
     console.log(error);
   }).always(function(){
