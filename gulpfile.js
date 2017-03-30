@@ -126,7 +126,7 @@ gulp.task('game-serve', ()=>{
   ]).on('change', reload);
 });
 
-gulp.task('nodemon', function (cb) {
+gulp.task('nodemon',['default'], function (cb) {
 	var started = false;
 
 	return $.nodemon({
@@ -170,7 +170,4 @@ gulp.task('build:server', () => {
         '.bowerrc'
     ], {cwdbase: true})
         .pipe(gulp.dest("dist"));
-});
-gulp.task('run-server', ['default', 'nodemon'], function(){
-  console.log('build app success and running on 8080');
 });

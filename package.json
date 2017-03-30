@@ -5,7 +5,7 @@
   },
   "scripts": {
     "start": "gulp nodemon",
-    "postinstall": "bower install && mongorestore && gulp"
+    "postinstall": "bower install && mongorestore"
   },
   "devDependencies": {
     "browser-sync": "^2.2.1",
