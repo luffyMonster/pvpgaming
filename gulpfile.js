@@ -81,7 +81,7 @@ gulp.task('serve', () => {
     browserSync({
       proxy: "localhost:9999",
       notify: false,
-      port: 9999,
+      port: 9998,
       files: ['.tmp', 'client', 'server']
     });
 
@@ -121,9 +121,6 @@ gulp.task('game-serve', ()=>{
 			started = true;
 		}
 	});
-  gulp.watch([
-    'gameserver/*.js',
-  ]).on('change', reload);
 });
 
 gulp.task('nodemon',['default'], function (cb) {

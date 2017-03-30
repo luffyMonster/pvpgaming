@@ -1,56 +1,38 @@
 $(document).ready(function () {
   var gameList;
-
   var itemGameTopTemplate = Handlebars.compile($("#item-game-top-template").html());
+  var getRate = function(_id, rates){
+    if (rates.length == 0) return 0;
+    var sum = 0;
+    rates.forEach(function(e){
+      sum += e.value;
+    });
+    return (sum*1.0)/rates.length;
+  }
   $.ajax({
     type  : "get",
-    url   : "/api/game/list"
+    url   : "/api/game/getTop3"
   }).then(function(data){
     gameList = data;
     var itemHtml = $(itemGameTopTemplate(data));
     $("#item_list").append(itemHtml);
-    for (var i = 0; i < gameList.result.length; i++) {
-      $('#' + gameList.result[i]._id).val(i);
-      $('#' + gameList.result[i]._id).rating({displayOnly: true, step: 0.5});
-    }
+    data.result.forEach(function(e, i){
+      $('#' + e._id).val(getRate(e._id, e.rates));
+      $('#' + e._id).rating({displayOnly: true, step: 0.5});
+    });
   }).fail(function(error){
     console.log(error);
   }).always(function(){
-
   });
 
   $('body').on('click', '#logout', function(e){
-    $.ajax({
-      type: 'get',
-      url: '/api/user/logout'
-    }).then(function(data){
-      $.removeCookie('user');
-      $.removeCookie('token');
-      window.location.href = "/";
-    }).fail(function(err) {
-      console.log(err);
-    })
+      logout();
   });
-
   $('#signin').submit(function(event) {
     event.preventDefault();
     var username = $('#username').val();
     var password = $('#password').val();
-    $.ajax({
-      type  : "post",
-      url   : "/api/auth/local",
-      data  : { username, password }
-    }).then(function(data){
-      if (data) {
-        if (data.token) {
-          $.cookie('token', data.token);
-          window.location.href = "";
-        }
-      }
-    }).fail(function(error){
-      console.log(error);
-    }).always(function(){
-    });
+    login({username, password});
   });
 
   $('#signup').submit(function(event) {

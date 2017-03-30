@@ -40,8 +40,14 @@ module.exports = {
           })
           .catch(err => next(err));
       }).use(function(err, req, res, next){
+        console.log(err);
         if (err && err.name == 'UnauthorizedError'){
-          res.redirect('/');
+          //can token expire
+          req.logout();
+          res.cookie('user', null);
+          res.cookie('token', null);
+          res.status(404).json({message: 'It looks like you aren\'t logged in, please try again. '});
+          return res.end();
         } else next();
       });
   },
@@ -71,7 +77,7 @@ module.exports = {
    */
   signToken: function(id, role) {
     return jwt.sign({ _id: id, role: role }, config.secret, {
-      expiresIn: 60 * 30
+      expiresIn: 60*30
     });
   },
 

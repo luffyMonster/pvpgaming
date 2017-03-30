@@ -28,7 +28,17 @@ module.exports = {
         }
       })
   },
-
+  getByName: function(req, res) {
+    if(req.query){
+      Game.findOne({name: req.query.name}).exec(function(err, data){
+        if (data) {
+          res.json({status: false, game: data, message: 'Success'}).end();
+        } else {
+          return res.json({status: false, message: 'Game is not found!'});
+        }
+      });
+    }
+  },
   edit: function(req,res){
     if(req.body){
       Game.findOne({name: req.body.name}).exec(function(err, data){
@@ -110,6 +120,7 @@ module.exports = {
       .lean()
       .exec(function(err, game){
         if (err) return console.log(err);
+        if (!game) return res.json({status: false, message: 'Please check gameID and retry'}).end();
         var updated;
         game.rates.forEach(function(e, i){
           if (e.userId == req.body.userId){
@@ -132,6 +143,7 @@ module.exports = {
   getRatedAvg: function(req, res){
     //res.query = {gameid}
       Game.findById(req.query.gameId).exec(function(err, game){
+        if (!game) return res.json({status: false, message: 'Please check gameID and retry'}).end();
         var sum = 0;
         game.rates.forEach(function(e){
           sum += e.value;
@@ -143,6 +155,7 @@ module.exports = {
   getUserRatedById: function(req, res){
     //res.query = {gameid, userId}
     Game.findById(req.query.gameId).exec(function(err, game){
+      if (!game) return res.json({status: false, message: 'Please check gameID and retry'}).end();
       var stop = false;
       game.rates.forEach(function(e){
         if (req.query.userId == e.userId){
@@ -160,5 +173,33 @@ module.exports = {
     Game.find().exec(function(err, data){
       res.json({status: true, result: data});
     });
+  },
+  getTop3: function(req, res){
+    Game.find().exec(function(err, data){
+      var tops = [];
+      var objs = [];
+      data.forEach(function(game, v){
+        var sum = 0;
+        var avg;
+        if (game.rates.length == 0) avg = 0;
+        else {
+          game.rates.forEach(function(e, i){
+            sum += e.value;
+          });
+          avg = sum*1.0/game.rates.length;
+        }
+        objs.push({game, avg});
+      });
+      objs.sort(function(a,b){
+        if (a.avg < b.avg) return 1;
+        if (a.avg > b.avg) return -1;
+        return 0;
+      });
+      for(let i = 0; i < 3; i++){
+        tops.push(objs[i].game);
+      }
+      res.json({status: true, result: tops})
+    });
   }
+
 }
