@@ -39,8 +39,6 @@ $(document).ready(function () {
     });
 
     if (user) {
-      console.log(gameId);
-      console.log(userId);
       $.ajax({
         type  : "get",
         url   : "/api/game/getUserRatedById",
