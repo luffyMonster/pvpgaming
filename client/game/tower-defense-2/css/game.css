@@ -208,6 +208,11 @@ canvas{
   font-family: "Gloria Hallelujah"
 }
 
+.fb-comments {
+  background-color: #cecece;
+  margin: 25px auto;
+}
+
 /*================================FOOTER=====================================*/
 
 #footer {
