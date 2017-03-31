@@ -15,7 +15,7 @@ module.exports = function(app) {
   app.use(session({
     secret: 'techkids'
   }));
-  app.all('/admin', auth.hasRole('admin'));
+  app.all('/admin/*', auth.hasRole('admin'));
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
 

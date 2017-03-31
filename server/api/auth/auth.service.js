@@ -46,7 +46,7 @@ module.exports = {
           req.logout();
           res.cookie('user', null);
           res.cookie('token', null);
-          res.status(404).json({message: 'It looks like you aren\'t logged in, please try again. '});
+          res.status(401).send('Requires authentication, please try again. ');
           return res.end();
         } else next();
       });

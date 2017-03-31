@@ -14,6 +14,7 @@ $(document).ready(function(){
     $('#chat-service').removeClass('hide');
     $('#chat-service-1').addClass('hide');
     $('#chat-service-1').removeClass('show');
+    $('#status_message').focus();
   });
 
   $("#downClass, #chat-service .popup-head").click(function () {
@@ -22,6 +23,10 @@ $(document).ready(function(){
     $('#chat-service-1').addClass('show');
   });
 
+  $('#clear-msg').on('click', function(e){
+    e.stopPropagation();
+    $('#chat-area').html('');
+  })
 
   $('#status_message').on('keypress', function (e) {
          if(e.which === 13){
@@ -34,6 +39,7 @@ $(document).ready(function(){
               $('#status_message').val('');
             }
             $(this).attr("disabled", null);
+            $('#status_message').focus();
             return false;
          }
    });
@@ -43,6 +49,7 @@ $(document).ready(function(){
     if (msg) {
       socket.emit('chat message', {sender, msg });
       $('#status_message').val('');
+      $('#status_message').focus();
     }
     return false;
   });
