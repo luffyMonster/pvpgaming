@@ -1447,6 +1447,7 @@ if (user) {
       Citadel.configs.GAME_HEIGHT,
       Phaser.AUTO,
       'game-play',
+    //  null,
       {
         preload: preload,
         create: create,
@@ -1456,6 +1457,12 @@ if (user) {
       false,
       false
     );
+    // Citadel.game.state.add('boot', bootState);
+    // Citadel.game.state.add('preload', preloadState);
+    // Citadel.game.state.add('menu', menuState);
+    // Citadel.game.state.add('play', playState);
+    // Citadel.game.state.add('gameover', gameOverState);
+    // Citadel.game.state.start('boot');
   }
 }
 
@@ -1478,14 +1485,29 @@ var preload = function() {
     Citadel.game.load.audio('soundExplode', ['Assets/sound/22.wav']);
     Citadel.game.load.audio('soundBackground', ['Assets/sound/Andromeda.mp3']);
     Citadel.game.time.advancedTiming = true;
+    document.onkeypress = function (e) {
+        e = e || window.event;
+        console.log(e);
+        if(e.keyCode == 112){
+
+          Citadel.game.paused = !Citadel.game.paused;
+          Citadel.pausedText.alpha = Citadel.game.paused ? 1 : 0;
+        }
+        if(e.keyCode == 13){
+          removeMusic();
+          Citadel.game.state.restart();
+        }
+    };
 }
 
 var create = function() {
   Citadel.music = {};
   Citadel.music.fire = Citadel.game.add.audio('soundFired');
+  Citadel.music.fire.volume = 0.3;
   Citadel.music.explode = Citadel.game.add.audio('soundExplode');
+  Citadel.music.explode.volume = 0.3;
   Citadel.music.background = Citadel.game.add.audio('soundBackground');
-
+  Citadel.music.background.volume = 0.2;
   Citadel.music.background.play();
   Citadel.map = new MapBuilder(-1 , Citadel.configs);
 
@@ -1494,18 +1516,25 @@ var create = function() {
     Citadel.health -= damage;
     if (Citadel.health <= 0) {
       console.log("GAME OVER!");
-      var style = { font: "30px Arial", fill: "#ff0044", wordWrap: true, wordWrapWidth: Citadel.configs.PLAY_SCREEN_WIDTH, align: "center"};
-      var text = Citadel.game.add.text(Citadel.configs.PLAY_SCREEN_WIDTH/2, Citadel.configs.PLAY_SCREEN_HEIGHT/2, "GAME OVER", style);
-      Citadel.game.paused = true;
+      var style = { font: "30px Arial", fill: "#fff", wordWrap: true, wordWrapWidth: Citadel.configs.PLAY_SCREEN_WIDTH, align: "center"};
+      var text = Citadel.game.add.text(Citadel.configs.PLAY_SCREEN_WIDTH/2, Citadel.configs.PLAY_SCREEN_HEIGHT/2, "GAME OVER\n Game will restart in 2s", style);
       setTimeout(function(){
-        location.reload();
+        removeMusic();
+        Citadel.game.state.restart();
       }, 2000);
     }
   }
 
   document.dispatchEvent(Citadel.map.event["nextLevel"]);
 }
-
+function removeMusic(){
+  var names = ["soundFired", "soundExplode", "soundBackground"];
+  var i = 0;
+  for (let music in Citadel.music){
+    Citadel.music[music].destroy();
+    Citadel.game.cache.removeSound(names[i++]);
+  }
+}
 var update = function() {
   Citadel.map.update();
 }
