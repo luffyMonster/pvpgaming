@@ -30,6 +30,7 @@
 - Clone source code from [WebAppFullstack](https://github.com/cuong-nguyen-thanh/WebAppFullstack)
 - `npm install`
 - `bower install`
+- SET MONGOLAB_URI="Mlab url db"
 
 ## Build & Run:
 - `gulp` - build dist

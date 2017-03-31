@@ -15,8 +15,10 @@ require('./routes')(app);
 
 // config DB
 var mongoose = require('mongoose');
-//mongoose.connect('mongodb://admin:123456@ds151697.mlab.com:51697/techkids');
-mongoose.connect('mongodb://localhost/web4');
+
+//need SET MONGOLAB_URI="url on mlab"
+mongoose.connect(process.env.MONGOLAB_URI);
+// /mongoose.connect('mongodb://localhost/web4');
 //
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'DB connection error: '));
