@@ -32,7 +32,7 @@ $(document).ready(function(){
     $('#submit').text('Create');
     $('.success').empty();
     $('.err_msg').empty();
-    $('#name').prop('disabled', false);
+    $('#name').prop('readonly', false);
   });
   $('body').on('click', '.btn_edit', function(){
     $('#game-modal').modal('toggle');
@@ -76,7 +76,6 @@ $(document).ready(function(){
     });
     // console.log($data);
     var objAjax = {};
-    console.log($data);
     if ($('#submit').text() === 'Create'){
       objAjax = {
         type: 'post',
@@ -84,7 +83,6 @@ $(document).ready(function(){
         data: $data
       };
     } else{
-      console.log('aaa');
       objAjax = {
         type: 'put',
         url: '/api/game/edit',
