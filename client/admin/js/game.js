@@ -40,7 +40,7 @@ $(document).ready(function(){
     $('#submit').text('Save');
     var game = findGameById(this.id.split('-')[1]);
     var listinput = ['name', 'gameurl', 'logo', 'background', 'description'];
-    $('#name').prop('disabled', true);
+    $('#name').prop('readonly', true);
     listinput.forEach(function(item){
       // console.log(item);
       $(`#${item}`).val(game[item]);
@@ -76,6 +76,7 @@ $(document).ready(function(){
     });
     // console.log($data);
     var objAjax = {};
+    console.log($data);
     if ($('#submit').text() === 'Create'){
       objAjax = {
         type: 'post',

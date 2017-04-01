@@ -1494,8 +1494,7 @@ var preload = function() {
           Citadel.pausedText.alpha = Citadel.game.paused ? 1 : 0;
         }
         if(e.keyCode == 13){
-          removeMusic();
-          Citadel.game.state.restart();
+          window.location.href = '';
         }
     };
 }
@@ -1519,8 +1518,7 @@ var create = function() {
       var style = { font: "30px Arial", fill: "#fff", wordWrap: true, wordWrapWidth: Citadel.configs.PLAY_SCREEN_WIDTH, align: "center"};
       var text = Citadel.game.add.text(Citadel.configs.PLAY_SCREEN_WIDTH/2, Citadel.configs.PLAY_SCREEN_HEIGHT/2, "GAME OVER\n Game will restart in 2s", style);
       setTimeout(function(){
-        removeMusic();
-        Citadel.game.state.restart();
+        window.location.href = "";
       }, 2000);
     }
   }
@@ -1531,6 +1529,7 @@ function removeMusic(){
   var names = ["soundFired", "soundExplode", "soundBackground"];
   var i = 0;
   for (let music in Citadel.music){
+    Citadel.map.level = -1;
     Citadel.music[music].destroy();
     Citadel.game.cache.removeSound(names[i++]);
   }
