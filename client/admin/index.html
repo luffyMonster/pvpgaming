@@ -6,9 +6,12 @@
     <link rel="stylesheet" type="text/css" href="../libs/bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/admin.css"/>
     <script type="text/javascript" src="../libs/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/libs/jquery/jquery.cookie.js"></script>
     <script type="text/javascript" src="../libs/bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="../libs/handlebars.js"></script>
+    <script type="text/javascript" src="/js/user.js"></script>
     <script type="text/javascript" src="js/admin.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
   </head>
   <body>
     <div class="header">
@@ -20,8 +23,8 @@
       <div class="row">
         <div class="col-md-4">
           <h3>Profile</h3>
-          <p>Username: </p>
-          <p>Name: </p>
+          <p>Username: <span id="username"></span></p>
+          <p>Name: <span id="name"></span></p>
         </div>
         <div class="col-md-8 border-left">
           <h2>Manager</h2>
